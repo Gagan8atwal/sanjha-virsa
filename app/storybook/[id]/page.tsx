@@ -1,4 +1,4 @@
-import { getStory, stories } from '@/lib/stories';
+import { getStory, stories } from '../../../lib/stories';
 import { notFound } from 'next/navigation';
 
 export function generateStaticParams() {
