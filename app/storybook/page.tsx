@@ -1,4 +1,4 @@
-import { stories } from '@/lib/stories';
+import { stories } from '../../lib/stories';
 
 const bookShelves = [
   { title: 'Guru Stories', description: 'Child-friendly Sikh history and values.' },
