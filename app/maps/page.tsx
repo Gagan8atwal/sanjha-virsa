@@ -1,4 +1,4 @@
-import InteractivePunjabAtlas from '../../components/InteractivePunjabAtlas';
+import RealPunjabMap from '../../components/RealPunjabMap';
 
 const layers = [
   {
@@ -54,8 +54,8 @@ export default function MapsPage() {
       <section className="bg-[#24160f] text-white">
         <div className="mx-auto max-w-7xl px-5 py-10 md:px-8">
           <p className="text-xs font-black uppercase tracking-[0.35em] text-amber-300">Sanjha Maps</p>
-          <h1 className="mt-3 text-5xl font-black leading-tight md:text-7xl">Punjab Map Library</h1>
-          <p className="mt-5 max-w-3xl text-lg font-semibold leading-8 text-slate-100">Clean interactive maps: no crowded labels. Tap a numbered place and its history opens in a detail panel.</p>
+          <h1 className="mt-3 text-5xl font-black leading-tight md:text-7xl">Punjab Globe & Map Library</h1>
+          <p className="mt-5 max-w-3xl text-lg font-semibold leading-8 text-slate-100">Zoom and move like a modern map service. Small place labels appear cleanly, and tapping a city opens its history, Punjabi name, modern identity, and learning words.</p>
         </div>
       </section>
 
@@ -72,13 +72,13 @@ export default function MapsPage() {
         </div>
       </section>
 
-      <InteractivePunjabAtlas />
+      <RealPunjabMap />
 
       <section id="old-punjab" className="mx-auto max-w-7xl scroll-mt-28 px-5 py-8 md:px-8">
         <div className="rounded-[2rem] bg-white p-6 shadow-xl ring-1 ring-black/10">
           <p className="text-sm font-black uppercase tracking-[0.25em] text-red-800">Old Punjab</p>
           <h2 className="mt-2 text-4xl font-black">Before modern borders</h2>
-          <p className="mt-4 text-sm font-semibold leading-7 text-slate-700">This layer teaches historic Punjab as a cultural region. Next build: old map images, era switcher, Sikh Empire boundary, British Punjab, and Partition map.</p>
+          <p className="mt-4 text-sm font-semibold leading-7 text-slate-700">Next map layer: an era switcher for Sikh Empire, British Punjab, pre-Partition Punjab, and modern boundaries.</p>
         </div>
       </section>
 
@@ -96,8 +96,8 @@ export default function MapsPage() {
       <section id="districts" className="mx-auto max-w-7xl scroll-mt-28 px-5 py-8 md:px-8">
         <div className="rounded-[2rem] bg-white p-6 shadow-xl ring-1 ring-black/10">
           <p className="text-sm font-black uppercase tracking-[0.25em] text-red-800">Districts</p>
-          <h2 className="mt-2 text-4xl font-black">Tap district chips next</h2>
-          <p className="mt-4 text-sm font-semibold leading-7 text-slate-700">District names should not be crammed on the map. Kids first see clean district chips, then each district will open its own story page.</p>
+          <h2 className="mt-2 text-4xl font-black">Districts appear as you zoom</h2>
+          <p className="mt-4 text-sm font-semibold leading-7 text-slate-700">Major cities remain visible from far away. Smaller cities and district centers appear when the user zooms in.</p>
           <div className="mt-5 flex flex-wrap gap-2">
             {indianDistricts.map((district) => <span key={district} className="rounded-full bg-white px-3 py-2 text-xs font-black text-slate-800 ring-1 ring-slate-200">{district}</span>)}
           </div>
@@ -117,8 +117,8 @@ export default function MapsPage() {
       <section id="heritage" className="mx-auto max-w-7xl scroll-mt-28 px-5 py-8 pb-16 md:px-8">
         <div className="rounded-[2rem] bg-white p-6 shadow-xl ring-1 ring-black/10">
           <p className="text-sm font-black uppercase tracking-[0.25em] text-amber-800">Heritage Places</p>
-          <h2 className="mt-2 text-4xl font-black">Story pins without clutter</h2>
-          <p className="mt-4 text-sm font-semibold leading-7 text-slate-700">These become detailed pages with history, maps, kids summary, Punjabi words, photos, and family questions.</p>
+          <h2 className="mt-2 text-4xl font-black">Historic places open in the same detail panel</h2>
+          <p className="mt-4 text-sm font-semibold leading-7 text-slate-700">The next content expansion will add all major gurdwaras, forts, cities, folk-story locations, old cities, and modern district centers.</p>
           <div className="mt-5 flex flex-wrap gap-2">
             {heritagePlaces.map((place) => <span key={place} className="rounded-full bg-amber-50 px-3 py-2 text-xs font-black text-slate-800 ring-1 ring-amber-200">{place}</span>)}
           </div>
