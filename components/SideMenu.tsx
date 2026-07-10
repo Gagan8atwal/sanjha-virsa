@@ -30,6 +30,7 @@ const groups: NavGroup[] = [
     items: [
       { label: 'Living Punjab', href: '/living-punjab', icon: 'culture' },
       { label: 'Culture Library', href: '/culture', icon: 'culture' },
+      { label: 'Food Museum', href: '/food', icon: 'culture' },
       { label: 'Clothing Museum', href: '/clothing', icon: 'culture' },
     ],
   },
