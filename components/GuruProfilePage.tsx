@@ -2,82 +2,101 @@ import type { GuruProfile } from '../lib/sikh-history';
 
 export default function GuruProfilePage({ guru }: { guru: GuruProfile }) {
   return (
-    <main className="min-h-screen bg-[#fff8ed] text-slate-950">
-      <section className="bg-[linear-gradient(135deg,#0f172a,#1e3a8a_55%,#d97706)] text-white">
-        <div className="mx-auto max-w-6xl px-5 py-8 md:px-8">
-          <a href="/heritage#gurus" className="text-sm font-black text-amber-300">← All Gurus</a>
-          <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_0.35fr] lg:items-center">
+    <main className="sv-page">
+      <section className="border-b border-black/10 bg-[#1e3553] text-white">
+        <div className="sv-container py-14 md:py-20">
+          <a href="/heritage#gurus" className="text-sm font-black text-[#e7b650]">Back to all Gurus</a>
+          <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.3em] text-amber-300">Guru {guru.number}</p>
-              <h1 className="mt-2 text-4xl font-black md:text-6xl">{guru.name}</h1>
-              <p className="mt-2 text-3xl font-black text-amber-100">{guru.punjabi}</p>
-              <p className="mt-4 text-lg font-black text-blue-100">{guru.subtitle}</p>
+              <p className="text-xs font-black uppercase tracking-[0.24em] text-[#e7b650]">Guru {guru.number}</p>
+              <h1 className="mt-4 max-w-[12ch] font-serif text-5xl font-bold leading-[0.97] tracking-[-0.04em] md:text-7xl">{guru.name}</h1>
+              <p className="mt-4 text-3xl font-black text-[#f3d9a8]">{guru.punjabi}</p>
+              <p className="mt-6 max-w-2xl text-lg font-semibold leading-8 text-white/70">{guru.subtitle}</p>
             </div>
-            <div className="flex h-36 w-36 items-center justify-center rounded-full bg-amber-300 text-6xl font-black text-slate-950 shadow-2xl ring-8 ring-white/15">{guru.number}</div>
+            <div className="flex h-24 w-24 items-center justify-center rounded-full border border-white/20 bg-white/5 font-serif text-4xl font-bold text-[#e7b650]">{guru.number}</div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-8 md:px-8">
-        <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="space-y-5">
-            <article className="rounded-3xl bg-white p-6 shadow-md ring-1 ring-black/10">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-800">Overview</p>
-              <p className="mt-3 text-lg font-semibold leading-8 text-slate-700">{guru.overview}</p>
+      <section className="sv-container py-12 md:py-16">
+        <div className="grid gap-10 lg:grid-cols-[1fr_19rem]">
+          <div className="space-y-10">
+            <article>
+              <p className="sv-kicker">Overview</p>
+              <p className="mt-4 max-w-3xl font-serif text-3xl font-bold leading-snug text-[#30251f]">{guru.overview}</p>
             </article>
 
-            <article className="rounded-3xl bg-white p-6 shadow-md ring-1 ring-black/10">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-800">Early life and formation</p>
-              <p className="mt-3 text-lg font-semibold leading-8 text-slate-700">{guru.earlyLife}</p>
+            <article className="border-t border-black/10 pt-8">
+              <p className="sv-kicker">Early life and formation</p>
+              <p className="mt-4 max-w-3xl text-lg font-medium leading-9 text-[#5f564d]">{guru.earlyLife}</p>
             </article>
 
-            <article className="rounded-3xl bg-white p-6 shadow-md ring-1 ring-black/10">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-800">Major contributions</p>
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                {guru.contributions.map((item, index) => <div key={item} className="rounded-2xl bg-blue-50 p-4 ring-1 ring-blue-100"><p className="text-xs font-black text-blue-700">{index + 1}</p><p className="mt-1 font-black leading-6">{item}</p></div>)}
+            <article className="border-t border-black/10 pt-8">
+              <p className="sv-kicker">Major contributions</p>
+              <div className="mt-6 divide-y divide-black/10 border-y border-black/10">
+                {guru.contributions.map((item, index) => (
+                  <div key={item} className="grid gap-4 py-5 sm:grid-cols-[3rem_1fr] sm:items-start">
+                    <span className="font-serif text-2xl font-bold text-[#1e3553]">{String(index + 1).padStart(2, '0')}</span>
+                    <p className="font-semibold leading-7 text-[#4f473f]">{item}</p>
+                  </div>
+                ))}
               </div>
             </article>
 
-            <article className="rounded-3xl bg-white p-6 shadow-md ring-1 ring-black/10">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-800">Main teachings</p>
-              <div className="mt-4 grid gap-3">
-                {guru.teachings.map((item) => <div key={item} className="rounded-2xl bg-amber-50 p-4 font-black ring-1 ring-amber-200">{item}</div>)}
+            <article className="border-t border-black/10 pt-8">
+              <p className="sv-kicker">Main teachings</p>
+              <div className="mt-6 grid gap-4 md:grid-cols-2">
+                {guru.teachings.map((item) => (
+                  <div key={item} className="rounded-[1.5rem] border border-black/10 bg-[#fffdf8] p-6 shadow-[0_12px_30px_rgba(54,35,24,0.05)]">
+                    <p className="font-serif text-2xl font-bold leading-tight">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </article>
+
+            <article className="rounded-[2rem] bg-[#201712] p-7 text-white md:p-9">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#e7b650]">For children</p>
+              <p className="mt-5 font-serif text-3xl font-bold leading-snug">{guru.childStory}</p>
+              <div className="mt-7 border-t border-white/10 pt-6">
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-white/45">Reflect</p>
+                <p className="mt-3 text-lg font-semibold leading-8 text-white/80">{guru.reflection}</p>
               </div>
             </article>
           </div>
 
-          <aside className="space-y-5">
-            <article className="rounded-3xl bg-[#24160f] p-6 text-white shadow-xl">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-amber-300">For children</p>
-              <p className="mt-4 text-lg font-black leading-8">{guru.childStory}</p>
-            </article>
+          <aside className="space-y-6 lg:sticky lg:top-8 lg:self-start">
+            <section className="rounded-[1.5rem] border border-black/10 bg-[#fffdf8] p-6">
+              <p className="sv-kicker">Important places</p>
+              <div className="mt-4 space-y-3">
+                {guru.places.map((place, index) => <div key={place} className="flex gap-3 border-b border-black/10 pb-3 last:border-0 last:pb-0"><span className="text-xs font-black text-[#6f1d1b]">{String(index + 1).padStart(2, '0')}</span><span className="font-semibold">{place}</span></div>)}
+              </div>
+            </section>
 
-            <article className="rounded-3xl bg-white p-6 shadow-md ring-1 ring-black/10">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-red-800">Important places</p>
-              <div className="mt-4 flex flex-wrap gap-2">{guru.places.map((place) => <span key={place} className="rounded-full bg-red-50 px-3 py-2 text-sm font-black text-red-900 ring-1 ring-red-100">{place}</span>)}</div>
-            </article>
+            <section className="rounded-[1.5rem] border border-black/10 bg-[#fffdf8] p-6">
+              <p className="sv-kicker">Connected people</p>
+              <div className="mt-4 space-y-3">
+                {guru.people.map((person) => <p key={person} className="border-b border-black/10 pb-3 font-semibold last:border-0 last:pb-0">{person}</p>)}
+              </div>
+            </section>
 
-            <article className="rounded-3xl bg-white p-6 shadow-md ring-1 ring-black/10">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-purple-800">Connected people</p>
-              <div className="mt-4 flex flex-wrap gap-2">{guru.people.map((person) => <span key={person} className="rounded-full bg-purple-50 px-3 py-2 text-sm font-black text-purple-900 ring-1 ring-purple-100">{person}</span>)}</div>
-            </article>
-
-            <article className="rounded-3xl bg-emerald-50 p-6 ring-1 ring-emerald-200">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-emerald-800">Reflect</p>
-              <p className="mt-3 text-xl font-black leading-8 text-emerald-950">{guru.reflection}</p>
-            </article>
-
-            <article className="rounded-3xl bg-white p-6 shadow-md ring-1 ring-black/10">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-amber-800">Punjabi words</p>
-              <div className="mt-4 flex flex-wrap gap-2">{guru.words.map((word) => <span key={word} className="rounded-full bg-amber-50 px-3 py-2 text-sm font-black ring-1 ring-amber-200">{word}</span>)}</div>
-            </article>
+            <section className="rounded-[1.5rem] bg-[#f0e5d4] p-6">
+              <p className="sv-kicker">Punjabi words</p>
+              <div className="mt-4 space-y-3">
+                {guru.words.map((word) => <p key={word} className="font-serif text-xl font-bold">{word}</p>)}
+              </div>
+            </section>
           </aside>
         </div>
 
-        <section className="mt-8 rounded-3xl bg-white p-6 shadow-md ring-1 ring-black/10">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-600">Learning modules planned for this profile</p>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {['Interactive timeline', 'Map of connected places', 'Audio narration', 'Knowledge quiz'].map((item) => <div key={item} className="rounded-2xl bg-slate-50 p-4 text-center font-black ring-1 ring-slate-200">{item}</div>)}
+        <section className="mt-14 border-t border-black/10 pt-10">
+          <p className="sv-kicker">Learning modules</p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {['Interactive timeline', 'Map of connected places', 'Audio narration', 'Knowledge quiz'].map((item, index) => (
+              <div key={item} className="rounded-[1.5rem] border border-black/10 bg-[#fffdf8] p-5">
+                <span className="text-xs font-black text-[#6f1d1b]">{String(index + 1).padStart(2, '0')}</span>
+                <p className="mt-3 font-serif text-xl font-bold">{item}</p>
+              </div>
+            ))}
           </div>
         </section>
       </section>
