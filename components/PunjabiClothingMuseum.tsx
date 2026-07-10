@@ -124,87 +124,44 @@ function ClothingIllustration({ item, compact = false, large = false }: { item: 
 
 function TurbanArt() {
   return <g>
-    <ellipse cx="210" cy="242" rx="90" ry="18" fill="#c7a865" opacity="0.55" />
-    <circle cx="210" cy="150" r="58" fill="#c98a72" />
-    <path d="M143 151c4-70 42-112 70-112 40 0 73 41 66 112-28-16-101-17-136 0Z" fill="#1e3553" />
-    <path d="M151 112c37-24 82-24 119 0M147 132c42-23 88-23 130 0M159 88c31-19 67-19 102 0M177 64c21-11 46-11 68 0" fill="none" stroke="#f3d9a8" strokeWidth="7" strokeLinecap="round" opacity="0.8" />
-    <path d="M183 155c16 10 38 10 54 0" stroke="#5b382c" strokeWidth="4" fill="none" strokeLinecap="round" />
-    <path d="M150 228c16-42 40-61 60-61s44 19 60 61" fill="#fffdf8" stroke="#6f1d1b" strokeWidth="8" />
+    <ellipse cx="210" cy="276" rx="104" ry="18" fill="#c7a865" opacity="0.5" />
+    <path d="M150 225c12-42 34-66 60-66 28 0 51 24 62 66v47H150v-47Z" fill="#f8f3ea" stroke="#6f1d1b" strokeWidth="7" />
+    <path d="M169 200c11 18 24 27 41 27s31-9 42-27" fill="#c98a72" />
+    <path d="M167 118c0-39 19-68 43-68 25 0 44 29 44 68v39c0 37-20 65-44 65-23 0-43-28-43-65v-39Z" fill="#c98a72" />
+    <path d="M145 128c3-56 28-91 65-91 42 0 69 37 65 94-20-8-41-11-65-11-25 0-47 3-65 8Z" fill="#1e3553" />
+    <path d="M150 108c23-10 45-15 67-15 20 0 38 4 55 11M153 89c22-10 42-15 61-15 19 0 36 4 52 11M162 70c18-8 35-12 51-12 15 0 30 3 44 9M177 52c11-5 23-8 35-8 11 0 22 2 33 6" fill="none" stroke="#f3d9a8" strokeWidth="6" strokeLinecap="round" opacity="0.78" />
+    <path d="M148 127c25 8 47 12 65 12 19 0 39-4 61-12" fill="none" stroke="#d99a22" strokeWidth="5" strokeLinecap="round" />
+    <path d="M205 38c11-7 26-6 38 1-12 4-22 11-29 22-5-9-8-16-9-23Z" fill="#1e3553" />
+    <path d="M183 149c8-5 16-7 24-7M215 142c8 0 16 2 23 7" stroke="#4b2e24" strokeWidth="4" strokeLinecap="round" />
+    <path d="M188 174c13 9 30 9 43 0" fill="none" stroke="#5b382c" strokeWidth="4" strokeLinecap="round" />
+    <path d="M190 187c6 15 14 24 20 24 7 0 14-9 20-24" fill="#4b2e24" opacity="0.85" />
   </g>;
 }
 
 function KurtaArt() {
-  return <g>
-    <ellipse cx="210" cy="282" rx="110" ry="16" fill="#c7a865" opacity="0.5" />
-    <path d="M155 70h110l18 44 37 35-26 28-28-24v118H154V153l-28 24-26-28 37-35 18-44Z" fill="#fffdf8" stroke="#1e3553" strokeWidth="8" strokeLinejoin="round" />
-    <path d="M210 70v48M197 95h26" stroke="#6f1d1b" strokeWidth="6" strokeLinecap="round" />
-    <path d="M168 134h84M168 160h84M168 186h84" stroke="#d6c09b" strokeWidth="5" strokeLinecap="round" />
-    <path d="M178 271v28M242 271v28" stroke="#1e3553" strokeWidth="14" strokeLinecap="round" />
-  </g>;
+  return <g><ellipse cx="210" cy="282" rx="110" ry="16" fill="#c7a865" opacity="0.5" /><path d="M155 70h110l18 44 37 35-26 28-28-24v118H154V153l-28 24-26-28 37-35 18-44Z" fill="#fffdf8" stroke="#1e3553" strokeWidth="8" strokeLinejoin="round" /><path d="M210 70v48M197 95h26" stroke="#6f1d1b" strokeWidth="6" strokeLinecap="round" /><path d="M168 134h84M168 160h84M168 186h84" stroke="#d6c09b" strokeWidth="5" strokeLinecap="round" /><path d="M178 271v28M242 271v28" stroke="#1e3553" strokeWidth="14" strokeLinecap="round" /></g>;
 }
 
 function TehmatArt() {
-  return <g>
-    <ellipse cx="210" cy="282" rx="112" ry="16" fill="#c7a865" opacity="0.5" />
-    <path d="M148 74h124l16 50-20 46H152l-20-46 16-50Z" fill="#fffdf8" stroke="#1e3553" strokeWidth="8" />
-    <path d="M150 164h120l18 110-78 24-78-24 18-110Z" fill="#8a5b1f" stroke="#6f1d1b" strokeWidth="8" />
-    <path d="M165 174c34 24 56 28 90 0M160 204c39 25 61 29 100 0M157 234c43 24 66 26 106 0" fill="none" stroke="#f3d9a8" strokeWidth="6" />
-    <path d="M210 164v125" stroke="#6f1d1b" strokeWidth="6" />
-  </g>;
+  return <g><ellipse cx="210" cy="282" rx="112" ry="16" fill="#c7a865" opacity="0.5" /><path d="M148 74h124l16 50-20 46H152l-20-46 16-50Z" fill="#fffdf8" stroke="#1e3553" strokeWidth="8" /><path d="M150 164h120l18 110-78 24-78-24 18-110Z" fill="#8a5b1f" stroke="#6f1d1b" strokeWidth="8" /><path d="M165 174c34 24 56 28 90 0M160 204c39 25 61 29 100 0M157 234c43 24 66 26 106 0" fill="none" stroke="#f3d9a8" strokeWidth="6" /><path d="M210 164v125" stroke="#6f1d1b" strokeWidth="6" /></g>;
 }
 
 function SalwarArt() {
-  return <g>
-    <ellipse cx="210" cy="292" rx="112" ry="15" fill="#c7a865" opacity="0.5" />
-    <path d="M132 52h156l-18 77-19 40 44 121h-70l-15-98-15 98h-70l44-121-19-40-18-77Z" fill="#d9a441" stroke="#6f1d1b" strokeWidth="8" strokeLinejoin="round" />
-    <path d="M150 80h120M145 105h130M160 132h100" stroke="#fff5d8" strokeWidth="5" strokeLinecap="round" />
-    <path d="M175 170c15 12 25 17 35 17s20-5 35-17" fill="none" stroke="#6f1d1b" strokeWidth="6" />
-  </g>;
+  return <g><ellipse cx="210" cy="292" rx="112" ry="15" fill="#c7a865" opacity="0.5" /><path d="M132 52h156l-18 77-19 40 44 121h-70l-15-98-15 98h-70l44-121-19-40-18-77Z" fill="#d9a441" stroke="#6f1d1b" strokeWidth="8" strokeLinejoin="round" /><path d="M150 80h120M145 105h130M160 132h100" stroke="#fff5d8" strokeWidth="5" strokeLinecap="round" /><path d="M175 170c15 12 25 17 35 17s20-5 35-17" fill="none" stroke="#6f1d1b" strokeWidth="6" /></g>;
 }
 
 function KameezArt() {
-  return <g>
-    <ellipse cx="210" cy="282" rx="110" ry="16" fill="#c7a865" opacity="0.5" />
-    <path d="M155 62h110l20 48 42 42-29 31-29-28v121H151V155l-29 28-29-31 42-42 20-48Z" fill="#6f1d1b" stroke="#3e1f1c" strokeWidth="8" strokeLinejoin="round" />
-    <path d="M190 62c0 22 8 34 20 34s20-12 20-34" fill="#f5e7ca" />
-    <path d="M210 96v168" stroke="#d99a22" strokeWidth="6" strokeDasharray="12 9" />
-    <path d="M168 138h84M168 172h84M168 206h84" stroke="#f3d9a8" strokeWidth="5" opacity="0.65" />
-    <path d="M173 276v22M247 276v22" stroke="#1e3553" strokeWidth="14" strokeLinecap="round" />
-  </g>;
+  return <g><ellipse cx="210" cy="282" rx="110" ry="16" fill="#c7a865" opacity="0.5" /><path d="M155 62h110l20 48 42 42-29 31-29-28v121H151V155l-29 28-29-31 42-42 20-48Z" fill="#6f1d1b" stroke="#3e1f1c" strokeWidth="8" strokeLinejoin="round" /><path d="M190 62c0 22 8 34 20 34s20-12 20-34" fill="#f5e7ca" /><path d="M210 96v168" stroke="#d99a22" strokeWidth="6" strokeDasharray="12 9" /><path d="M168 138h84M168 172h84M168 206h84" stroke="#f3d9a8" strokeWidth="5" opacity="0.65" /><path d="M173 276v22M247 276v22" stroke="#1e3553" strokeWidth="14" strokeLinecap="round" /></g>;
 }
 
 function PhulkariArt() {
-  return <g>
-    <ellipse cx="210" cy="286" rx="120" ry="16" fill="#c7a865" opacity="0.5" />
-    <path d="M76 52h268v214H76Z" fill="#8e2622" stroke="#5d1714" strokeWidth="8" />
-    <g fill="#d99a22">
-      {[110,170,230,290].map((x) => [86,146,206].map((y) => <path key={`${x}-${y}`} d={`M${x} ${y-18}l18 18-18 18-18-18 18-18Z`} />))}
-    </g>
-    <g stroke="#f3d9a8" strokeWidth="5">
-      <path d="M76 70h268M76 248h268M94 52v214M326 52v214" />
-      <path d="M82 58l256 202M338 58 82 260" opacity="0.35" />
-    </g>
-  </g>;
+  return <g><ellipse cx="210" cy="286" rx="120" ry="16" fill="#c7a865" opacity="0.5" /><path d="M76 52h268v214H76Z" fill="#8e2622" stroke="#5d1714" strokeWidth="8" /><g fill="#d99a22">{[110,170,230,290].map((x) => [86,146,206].map((y) => <path key={`${x}-${y}`} d={`M${x} ${y-18}l18 18-18 18-18-18 18-18Z`} />))}</g><g stroke="#f3d9a8" strokeWidth="5"><path d="M76 70h268M76 248h268M94 52v214M326 52v214" /><path d="M82 58l256 202M338 58 82 260" opacity="0.35" /></g></g>;
 }
 
 function JuttiArt() {
-  return <g>
-    <ellipse cx="210" cy="262" rx="126" ry="20" fill="#c7a865" opacity="0.5" />
-    <path d="M54 180c58-31 122-31 173 3 17 11 34 31 41 57H84c-20 0-31-12-30-60Z" fill="#a85d2a" stroke="#5c2c12" strokeWidth="8" />
-    <path d="M366 180c-58-31-122-31-173 3-17 11-34 31-41 57h184c20 0 31-12 30-60Z" fill="#a85d2a" stroke="#5c2c12" strokeWidth="8" />
-    <path d="M80 190c45-18 88-12 130 15M340 190c-45-18-88-12-130 15" fill="none" stroke="#d99a22" strokeWidth="7" strokeLinecap="round" />
-    <path d="M108 214h70M242 214h70" stroke="#f3d9a8" strokeWidth="5" strokeDasharray="9 8" />
-  </g>;
+  return <g><ellipse cx="210" cy="262" rx="126" ry="20" fill="#c7a865" opacity="0.5" /><path d="M54 180c58-31 122-31 173 3 17 11 34 31 41 57H84c-20 0-31-12-30-60Z" fill="#a85d2a" stroke="#5c2c12" strokeWidth="8" /><path d="M366 180c-58-31-122-31-173 3-17 11-34 31-41 57h184c20 0 31-12 30-60Z" fill="#a85d2a" stroke="#5c2c12" strokeWidth="8" /><path d="M80 190c45-18 88-12 130 15M340 190c-45-18-88-12-130 15" fill="none" stroke="#d99a22" strokeWidth="7" strokeLinecap="round" /><path d="M108 214h70M242 214h70" stroke="#f3d9a8" strokeWidth="5" strokeDasharray="9 8" /></g>;
 }
 
 function ParandaArt() {
-  return <g>
-    <ellipse cx="210" cy="286" rx="88" ry="14" fill="#c7a865" opacity="0.5" />
-    <path d="M180 42c18 20 26 44 26 72v95" stroke="#4a2a1d" strokeWidth="20" strokeLinecap="round" />
-    <path d="M240 42c-18 20-26 44-26 72v95" stroke="#4a2a1d" strokeWidth="20" strokeLinecap="round" />
-    <path d="M210 94v136" stroke="#6f1d1b" strokeWidth="22" strokeLinecap="round" />
-    <path d="M210 105v118" stroke="#d99a22" strokeWidth="5" strokeDasharray="10 10" />
-    <path d="M170 224h80l-18 52-22-22-22 22-18-52Z" fill="#d99a22" stroke="#6f1d1b" strokeWidth="7" />
-    <circle cx="210" cy="236" r="10" fill="#fff3d9" />
-  </g>;
+  return <g><ellipse cx="210" cy="286" rx="88" ry="14" fill="#c7a865" opacity="0.5" /><path d="M180 42c18 20 26 44 26 72v95" stroke="#4a2a1d" strokeWidth="20" strokeLinecap="round" /><path d="M240 42c-18 20-26 44-26 72v95" stroke="#4a2a1d" strokeWidth="20" strokeLinecap="round" /><path d="M210 94v136" stroke="#6f1d1b" strokeWidth="22" strokeLinecap="round" /><path d="M210 105v118" stroke="#d99a22" strokeWidth="5" strokeDasharray="10 10" /><path d="M170 224h80l-18 52-22-22-22 22-18-52Z" fill="#d99a22" stroke="#6f1d1b" strokeWidth="7" /><circle cx="210" cy="236" r="10" fill="#fff3d9" /></g>;
 }
