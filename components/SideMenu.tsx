@@ -1,6 +1,7 @@
 export default function SideMenu() {
   const menuItems = [
     { label: 'Home', href: '/' },
+    { label: 'Kids Hub', href: '/kids' },
     { label: 'Stories', href: '/storybook' },
     { label: 'History', href: '/worlds/history' },
     { label: 'Maps', href: '/maps' },
@@ -8,7 +9,6 @@ export default function SideMenu() {
     { label: 'Heritage', href: '/worlds/sikh-heritage' },
     { label: 'Language', href: '/worlds/language' },
     { label: 'Culture', href: '/worlds/culture' },
-    { label: 'Kids Hub', href: '/worlds/kids-hub' },
   ];
 
   return (
