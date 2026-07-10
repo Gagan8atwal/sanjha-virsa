@@ -6,6 +6,7 @@ export default function SideMenu() {
     { label: 'Sikh History', href: '/heritage' },
     { label: 'Punjab History', href: '/worlds/history' },
     { label: 'Living Punjab', href: '/living-punjab' },
+    { label: 'Culture', href: '/culture' },
     { label: 'Language', href: '/language' },
     { label: 'Maps', href: '/maps' },
     { label: 'Kids Quiz', href: '/quiz' },
