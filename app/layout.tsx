@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import SideMenu from '../components/SideMenu';
+import 'maplibre-gl/dist/maplibre-gl.css';
 import './globals.css';
 
 export const metadata: Metadata = {
