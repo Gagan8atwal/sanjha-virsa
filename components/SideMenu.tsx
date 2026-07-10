@@ -19,6 +19,7 @@ const groups: NavGroup[] = [
     label: 'History',
     items: [
       { label: 'Sikh History', href: '/heritage', icon: 'history' },
+      { label: 'Punjab Through Time', href: '/timeline', icon: 'history' },
       { label: 'Punjab History', href: '/worlds/history', icon: 'history' },
       { label: 'Punjab Cities', href: '/cities', icon: 'map' },
       { label: 'Maps', href: '/maps', icon: 'map' },
