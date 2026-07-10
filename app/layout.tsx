@@ -6,6 +6,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Sanjha Virsa | Punjabi Heritage Learning',
   description: 'A free multilingual platform for Punjabi language, history, culture, and heritage.',
+  themeColor: '#201712',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -13,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <SideMenu />
-        <div className="lg:pl-64">{children}</div>
+        <div className="sv-shell">{children}</div>
       </body>
     </html>
   );
