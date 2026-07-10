@@ -1,14 +1,15 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type Lesson = {
   id: string;
   title: string;
   punjabi: string;
-  emoji: string;
+  subtitle: string;
   xp: number;
   coins: number;
+  tone: string;
   tasks: string[];
 };
 
@@ -19,16 +20,15 @@ type Progress = {
   streak: number;
   lastActive: string;
   name: string;
-  avatar: string;
 };
 
 const lessons: Lesson[] = [
-  { id: 'alphabet', title: 'Alphabet', punjabi: 'ਅੱਖਰ', emoji: 'ਅ', xp: 50, coins: 10, tasks: ['Tap 3 letters', 'Say one word aloud', 'Choose the correct meaning'] },
-  { id: 'family', title: 'Family', punjabi: 'ਪਰਿਵਾਰ', emoji: '👨‍👩‍👧‍👦', xp: 40, coins: 8, tasks: ['Learn 3 family words', 'Say one sentence', 'Ask an elder one question'] },
-  { id: 'food', title: 'Kitchen', punjabi: 'ਰਸੋਈ', emoji: '🍲', xp: 45, coins: 9, tasks: ['Learn 3 food words', 'Match one item', 'Name a family dish'] },
-  { id: 'animals', title: 'Animals', punjabi: 'ਜਾਨਵਰ', emoji: '🐄', xp: 35, coins: 7, tasks: ['Learn 3 animals', 'Match one sound', 'Say one Punjabi name'] },
-  { id: 'stories', title: 'Story', punjabi: 'ਕਹਾਣੀ', emoji: '📚', xp: 60, coins: 12, tasks: ['Open a story', 'Reach the last page', 'Answer the family question'] },
-  { id: 'festivals', title: 'Festivals', punjabi: 'ਤਿਉਹਾਰ', emoji: '🪁', xp: 55, coins: 11, tasks: ['Learn one festival', 'Name one tradition', 'Complete the recap'] },
+  { id: 'alphabet', title: 'Alphabet', punjabi: 'ਅੱਖਰ', subtitle: 'Recognize letters and sounds', xp: 50, coins: 10, tone: '#6f1d1b', tasks: ['Open three letters', 'Say one word aloud', 'Choose the correct meaning'] },
+  { id: 'family', title: 'Family Words', punjabi: 'ਪਰਿਵਾਰ', subtitle: 'Speak with parents and elders', xp: 40, coins: 8, tone: '#1e3553', tasks: ['Learn three family words', 'Say one short sentence', 'Ask an elder one question'] },
+  { id: 'food', title: 'Kitchen Words', punjabi: 'ਰਸੋਈ', subtitle: 'Learn words from daily meals', xp: 45, coins: 9, tone: '#9a5b19', tasks: ['Learn three food words', 'Match one item', 'Name a family dish'] },
+  { id: 'animals', title: 'Animals', punjabi: 'ਜਾਨਵਰ', subtitle: 'Words from village and nature', xp: 35, coins: 7, tone: '#315a45', tasks: ['Learn three animal names', 'Match one sound', 'Say one Punjabi name'] },
+  { id: 'stories', title: 'Story Time', punjabi: 'ਕਹਾਣੀ', subtitle: 'Read and answer together', xp: 60, coins: 12, tone: '#5b3d76', tasks: ['Open one story', 'Reach the final page', 'Answer the family question'] },
+  { id: 'festivals', title: 'Festivals', punjabi: 'ਤਿਉਹਾਰ', subtitle: 'Learn meaning and tradition', xp: 55, coins: 11, tone: '#7b4f16', tasks: ['Learn one festival', 'Name one tradition', 'Complete the recap'] },
 ];
 
 const alphabet = [
@@ -42,9 +42,7 @@ const alphabet = [
   { letter: 'ਗ', name: 'Gagga', word: 'ਗੁਰੂ', meaning: 'Guide' },
 ];
 
-const defaultProgress: Progress = {
-  completed: [], xp: 0, coins: 0, streak: 1, lastActive: '', name: 'Punjab Explorer', avatar: '🦁',
-};
+const defaultProgress: Progress = { completed: [], xp: 0, coins: 0, streak: 1, lastActive: '', name: 'Punjab Explorer' };
 
 function todayKey() {
   return new Date().toISOString().slice(0, 10);
@@ -61,9 +59,8 @@ export default function KidsLearningHub() {
   useEffect(() => {
     const saved = window.localStorage.getItem('sanjha-game-progress-v2');
     if (saved) {
-      const parsed = JSON.parse(saved) as Progress;
-      const today = todayKey();
-      setProgress({ ...parsed, streak: parsed.lastActive && parsed.lastActive !== today ? parsed.streak : Math.max(1, parsed.streak) });
+      const parsed = JSON.parse(saved) as Progress & { avatar?: string };
+      setProgress({ ...defaultProgress, ...parsed });
     }
   }, []);
 
@@ -74,12 +71,6 @@ export default function KidsLearningHub() {
   const level = Math.floor(progress.xp / 100) + 1;
   const levelProgress = progress.xp % 100;
   const completedCount = progress.completed.length;
-  const badges = useMemo(() => [
-    { name: 'First Win', icon: '⭐', unlocked: completedCount >= 1 },
-    { name: 'Word Hero', icon: 'ਅ', unlocked: completedCount >= 2 },
-    { name: 'Virsa Guide', icon: '🧭', unlocked: completedCount >= 4 },
-    { name: 'Daily Flame', icon: '🔥', unlocked: progress.streak >= 3 },
-  ], [completedCount, progress.streak]);
 
   function startLesson(lesson: Lesson) {
     if (progress.completed.includes(lesson.id)) return;
@@ -108,100 +99,103 @@ export default function KidsLearningHub() {
     setTaskIndex(0);
   }
 
-  function saveProfile(name: string, avatar: string) {
-    setProgress((current) => ({ ...current, name: name.trim() || 'Punjab Explorer', avatar }));
-    setProfileOpen(false);
-  }
-
   return (
-    <main className="min-h-screen bg-[#fff8ed] text-slate-950">
+    <main className="sv-page">
       {reward && (
         <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/55 p-5 backdrop-blur-sm">
-          <div className="w-full max-w-sm rounded-3xl bg-white p-6 text-center shadow-2xl ring-4 ring-amber-300">
-            <p className="text-5xl">🏆</p>
-            <h2 className="mt-2 text-3xl font-black text-red-800">Shabash!</h2>
-            <p className="mt-1 font-bold text-slate-600">Lesson completed</p>
-            <div className="mt-5 grid grid-cols-2 gap-3">
-              <div className="rounded-2xl bg-amber-50 p-4"><p className="text-xs font-black text-amber-800">XP</p><p className="text-2xl font-black">+{reward.xp}</p></div>
-              <div className="rounded-2xl bg-purple-50 p-4"><p className="text-xs font-black text-purple-800">COINS</p><p className="text-2xl font-black">+{reward.coins}</p></div>
+          <div className="w-full max-w-sm rounded-[1.75rem] bg-[#fffdf8] p-7 text-center shadow-2xl">
+            <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-[#315a45] text-xl font-black text-white">✓</div>
+            <h2 className="mt-5 font-serif text-3xl font-bold">Lesson complete</h2>
+            <p className="mt-2 text-sm font-medium text-[#6f675f]">Your progress has been saved.</p>
+            <div className="mt-6 grid grid-cols-2 gap-3">
+              <div className="rounded-2xl bg-[#fff3d9] p-4"><p className="text-xs font-black uppercase tracking-[0.15em] text-[#7b4f16]">XP</p><p className="mt-1 text-2xl font-black">+{reward.xp}</p></div>
+              <div className="rounded-2xl bg-[#eef5ef] p-4"><p className="text-xs font-black uppercase tracking-[0.15em] text-[#315a45]">Coins</p><p className="mt-1 text-2xl font-black">+{reward.coins}</p></div>
             </div>
-            <button onClick={() => setReward(null)} className="mt-5 w-full rounded-2xl bg-emerald-600 px-5 py-4 font-black text-white">Continue</button>
+            <button onClick={() => setReward(null)} className="mt-6 w-full rounded-full bg-[#201712] px-5 py-3.5 font-black text-white">Continue</button>
           </div>
         </div>
       )}
 
       {activeLesson && (
         <div className="fixed inset-0 z-[75] flex items-end justify-center bg-black/50 p-3 backdrop-blur-sm sm:items-center">
-          <div className="w-full max-w-lg rounded-3xl bg-white p-5 shadow-2xl">
-            <div className="flex items-center justify-between">
-              <div><p className="text-xs font-black uppercase text-purple-700">Lesson</p><h2 className="text-2xl font-black">{activeLesson.emoji} {activeLesson.title}</h2></div>
-              <button onClick={() => setActiveLesson(null)} className="rounded-full bg-slate-100 px-3 py-2 font-black">×</button>
+          <div className="w-full max-w-lg rounded-[1.75rem] bg-[#fffdf8] p-6 shadow-2xl">
+            <div className="flex items-start justify-between gap-4">
+              <div><p className="sv-kicker">Lesson</p><h2 className="mt-2 font-serif text-3xl font-bold">{activeLesson.title}</h2><p className="mt-1 font-bold text-[#6f1d1b]">{activeLesson.punjabi}</p></div>
+              <button onClick={() => setActiveLesson(null)} className="grid h-10 w-10 place-items-center rounded-full border border-black/10 bg-white text-xl">×</button>
             </div>
-            <div className="mt-5 h-3 overflow-hidden rounded-full bg-slate-200"><div className="h-full bg-gradient-to-r from-purple-600 to-amber-400 transition-all" style={{ width: `${((taskIndex + 1) / activeLesson.tasks.length) * 100}%` }} /></div>
-            <p className="mt-5 text-sm font-black text-slate-500">Task {taskIndex + 1} of {activeLesson.tasks.length}</p>
-            <div className="mt-3 rounded-3xl bg-amber-50 p-6 text-center ring-1 ring-amber-200">
-              <p className="text-5xl">{activeLesson.emoji}</p>
-              <p className="mt-4 text-xl font-black">{activeLesson.tasks[taskIndex]}</p>
-              <p className="mt-2 text-sm font-semibold text-slate-600">Complete this step before moving forward.</p>
+            <div className="mt-6 h-2 overflow-hidden rounded-full bg-black/10"><div className="h-full bg-[#d99a22] transition-all" style={{ width: `${((taskIndex + 1) / activeLesson.tasks.length) * 100}%` }} /></div>
+            <p className="mt-5 text-xs font-black uppercase tracking-[0.16em] text-[#6f675f]">Step {taskIndex + 1} of {activeLesson.tasks.length}</p>
+            <div className="mt-3 rounded-[1.5rem] border border-black/10 bg-white p-6">
+              <p className="font-serif text-2xl font-bold leading-tight">{activeLesson.tasks[taskIndex]}</p>
+              <p className="mt-3 text-sm font-medium leading-6 text-[#6f675f]">Complete this step before moving forward.</p>
             </div>
-            <button onClick={completeTask} className="mt-5 w-full rounded-2xl bg-amber-300 px-5 py-4 font-black text-slate-950">
-              {taskIndex === activeLesson.tasks.length - 1 ? 'Finish lesson' : 'Task done · Next'}
-            </button>
+            <button onClick={completeTask} className="mt-5 w-full rounded-full bg-[#d99a22] px-5 py-3.5 font-black text-[#201712]">{taskIndex === activeLesson.tasks.length - 1 ? 'Finish lesson' : 'Complete step'}</button>
           </div>
         </div>
       )}
 
-      {profileOpen && <ProfileEditor progress={progress} onSave={saveProfile} onClose={() => setProfileOpen(false)} />}
+      {profileOpen && <ProfileEditor progress={progress} onSave={(name) => { setProgress((current) => ({ ...current, name })); setProfileOpen(false); }} onClose={() => setProfileOpen(false)} />}
 
-      <section className="bg-[linear-gradient(135deg,#4c1d95,#7f1d1d_55%,#f59e0b)] text-white">
-        <div className="mx-auto max-w-7xl px-5 py-7 md:px-8">
-          <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-            <div>
-              <p className="text-xs font-black uppercase tracking-[0.25em] text-amber-200">Kids Hub</p>
-              <h1 className="mt-2 text-3xl font-black md:text-5xl">Learn. Play. Preserve.</h1>
-              <p className="mt-2 max-w-xl text-sm font-semibold text-slate-100">Short lessons. Real completion. Meaningful rewards.</p>
-            </div>
-            <button onClick={() => setProfileOpen(true)} className="flex items-center gap-3 rounded-2xl bg-white/15 p-3 text-left ring-1 ring-white/20">
-              <span className="text-4xl">{progress.avatar}</span><span><span className="block text-xs text-amber-100">Player</span><span className="font-black">{progress.name}</span></span>
-            </button>
+      <section className="border-b border-black/10 bg-[#201712] text-white">
+        <div className="sv-container grid gap-8 py-12 md:grid-cols-[1fr_auto] md:items-end md:py-16">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-[#e7b650]">Kids learning hub</p>
+            <h1 className="mt-4 max-w-3xl font-serif text-5xl font-bold leading-[0.98] tracking-[-0.04em] md:text-6xl">Small lessons. Clear progress. Stronger connection.</h1>
+            <p className="mt-5 max-w-2xl text-base font-medium leading-8 text-white/65">Choose one lesson, complete three steps, and return tomorrow.</p>
           </div>
+          <button onClick={() => setProfileOpen(true)} className="rounded-full border border-white/20 px-5 py-3 text-left text-sm font-black text-white">{progress.name}</button>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-5 md:px-8">
-        <div className="grid grid-cols-4 gap-2 rounded-3xl bg-white p-3 shadow-lg ring-1 ring-black/10">
+      <section className="sv-container py-8">
+        <div className="grid gap-4 rounded-[1.75rem] border border-black/10 bg-[#fffdf8] p-5 shadow-[0_18px_45px_rgba(54,35,24,0.08)] sm:grid-cols-4">
           <Stat label="Level" value={String(level)} />
           <Stat label="XP" value={String(progress.xp)} />
           <Stat label="Coins" value={String(progress.coins)} />
-          <Stat label="Streak" value={`${progress.streak}🔥`} />
+          <Stat label="Streak" value={`${progress.streak} days`} />
         </div>
-        <div className="mt-3 h-3 overflow-hidden rounded-full bg-slate-200"><div className="h-full bg-gradient-to-r from-purple-600 to-amber-400" style={{ width: `${levelProgress}%` }} /></div>
+        <div className="mt-3 h-2 overflow-hidden rounded-full bg-black/10"><div className="h-full bg-[#d99a22]" style={{ width: `${levelProgress}%` }} /></div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-4 md:px-8">
-        <div className="mb-4 flex items-end justify-between"><div><p className="text-xs font-black uppercase tracking-[0.2em] text-purple-800">Learning path</p><h2 className="text-2xl font-black">Choose a lesson</h2></div><span className="text-sm font-black text-slate-500">{completedCount}/{lessons.length}</span></div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="sv-container py-10 md:py-14">
+        <div className="flex items-end justify-between gap-4">
+          <div><p className="sv-kicker">Learning path</p><h2 className="mt-2 font-serif text-4xl font-bold">Choose one lesson</h2></div>
+          <p className="text-sm font-black text-[#6f675f]">{completedCount}/{lessons.length} complete</p>
+        </div>
+
+        <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {lessons.map((lesson) => {
             const done = progress.completed.includes(lesson.id);
-            return <button key={lesson.id} onClick={() => startLesson(lesson)} className={`rounded-3xl p-4 text-left shadow-md ring-1 transition ${done ? 'bg-emerald-50 ring-emerald-200' : 'bg-white ring-black/10 hover:-translate-y-1 hover:shadow-xl'}`}>
-              <div className="flex items-start justify-between"><span className="text-4xl">{lesson.emoji}</span><span className={`rounded-full px-3 py-1 text-xs font-black ${done ? 'bg-emerald-200 text-emerald-900' : 'bg-amber-100 text-amber-900'}`}>{done ? 'Completed' : `${lesson.xp} XP`}</span></div>
-              <h3 className="mt-3 text-xl font-black">{lesson.title}</h3><p className="text-lg font-black text-red-800">{lesson.punjabi}</p>
-              <p className="mt-3 text-sm font-semibold text-slate-600">{done ? 'Reward already earned.' : `${lesson.tasks.length} tasks · ${lesson.coins} coins`}</p>
-            </button>;
+            return (
+              <button key={lesson.id} onClick={() => startLesson(lesson)} className={`overflow-hidden rounded-[1.75rem] border text-left shadow-[0_16px_36px_rgba(54,35,24,0.07)] transition hover:-translate-y-0.5 ${done ? 'border-[#315a45]/25 bg-[#f3f8f4]' : 'border-black/10 bg-[#fffdf8]'}`}>
+                <LessonArt type={lesson.id} tone={lesson.tone} />
+                <div className="p-5">
+                  <div className="flex items-center justify-between gap-3"><p className="text-xs font-black uppercase tracking-[0.16em]" style={{ color: lesson.tone }}>{lesson.subtitle}</p><span className="text-xs font-black text-[#6f675f]">{done ? 'Completed' : `${lesson.xp} XP`}</span></div>
+                  <h3 className="mt-3 font-serif text-2xl font-bold">{lesson.title}</h3>
+                  <p className="mt-1 text-lg font-black text-[#6f1d1b]">{lesson.punjabi}</p>
+                  <p className="mt-4 text-sm font-medium text-[#6f675f]">{done ? 'Reward already earned.' : `${lesson.tasks.length} short steps`}</p>
+                </div>
+              </button>
+            );
           })}
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-8 md:px-8">
-        <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="rounded-3xl bg-white p-5 shadow-lg ring-1 ring-black/10">
-            <p className="text-xs font-black uppercase tracking-[0.2em] text-red-800">Alphabet practice</p>
-            <div className="mt-4 grid grid-cols-8 gap-2">{alphabet.map((item) => <button key={item.letter} onClick={() => setSelectedLetter(item)} className={`rounded-xl py-3 text-2xl font-black ${selectedLetter.letter === item.letter ? 'bg-red-800 text-white' : 'bg-amber-50 text-red-900 ring-1 ring-amber-200'}`}>{item.letter}</button>)}</div>
-            <div className="mt-4 flex items-center gap-5 rounded-2xl bg-amber-50 p-4"><span className="text-6xl font-black text-red-800">{selectedLetter.letter}</span><div><p className="text-lg font-black">{selectedLetter.name}</p><p className="font-bold text-slate-700">{selectedLetter.word} · {selectedLetter.meaning}</p></div></div>
+      <section className="border-y border-black/10 bg-[#fffdf8]">
+        <div className="sv-container grid gap-8 py-12 lg:grid-cols-[1fr_0.8fr] lg:items-center">
+          <div>
+            <p className="sv-kicker">Alphabet practice</p>
+            <h2 className="mt-3 font-serif text-4xl font-bold">Open one letter at a time.</h2>
+            <div className="mt-6 grid grid-cols-4 gap-3 sm:grid-cols-8">
+              {alphabet.map((item) => <button key={item.letter} onClick={() => setSelectedLetter(item)} className={`rounded-2xl border py-4 text-2xl font-black ${selectedLetter.letter === item.letter ? 'border-[#6f1d1b] bg-[#6f1d1b] text-white' : 'border-black/10 bg-[#fff8e8] text-[#6f1d1b]'}`}>{item.letter}</button>)}
+            </div>
           </div>
-          <div className="rounded-3xl bg-[#24160f] p-5 text-white shadow-lg">
-            <p className="text-xs font-black uppercase tracking-[0.2em] text-amber-300">Badges</p>
-            <div className="mt-4 grid grid-cols-2 gap-3">{badges.map((badge) => <div key={badge.name} className={`rounded-2xl p-3 ${badge.unlocked ? 'bg-white text-slate-950' : 'bg-white/10 text-white/50'}`}><p className="text-3xl">{badge.icon}</p><p className="mt-1 text-sm font-black">{badge.name}</p><p className="text-xs">{badge.unlocked ? 'Unlocked' : 'Locked'}</p></div>)}</div>
+          <div className="rounded-[1.75rem] bg-[#201712] p-7 text-white">
+            <p className="text-xs font-black uppercase tracking-[0.2em] text-[#e7b650]">Selected letter</p>
+            <p className="mt-5 text-7xl font-black text-[#f3d9a8]">{selectedLetter.letter}</p>
+            <p className="mt-4 font-serif text-3xl font-bold">{selectedLetter.name}</p>
+            <p className="mt-2 text-xl font-black text-[#e7b650]">{selectedLetter.word}</p>
+            <p className="mt-1 text-sm font-medium text-white/60">{selectedLetter.meaning}</p>
           </div>
         </div>
       </section>
@@ -209,12 +203,26 @@ export default function KidsLearningHub() {
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
-  return <div className="text-center"><p className="text-[10px] font-black uppercase text-slate-500">{label}</p><p className="mt-1 text-xl font-black sm:text-2xl">{value}</p></div>;
+function LessonArt({ type, tone }: { type: string; tone: string }) {
+  return (
+    <svg viewBox="0 0 520 220" role="img" aria-label={`${type} lesson illustration`} className="h-40 w-full" style={{ background: '#f6ead4' }}>
+      <rect width="520" height="220" fill="#f6ead4" />
+      <circle cx="430" cy="45" r="30" fill="#d99a22" opacity="0.85" />
+      {type === 'alphabet' && <><rect x="55" y="35" width="150" height="150" rx="24" fill="#fffdf8" /><text x="130" y="140" textAnchor="middle" fontSize="96" fontWeight="700" fill={tone}>ਅ</text><path d="M255 70h180M255 112h140M255 154h165" stroke={tone} strokeWidth="14" strokeLinecap="round" opacity="0.55" /></>}
+      {type === 'family' && <><path d="M78 176v-65l62-44 62 44v65" fill="#f3d9a8" stroke={tone} strokeWidth="8"/><circle cx="280" cy="92" r="28" fill={tone}/><circle cx="340" cy="82" r="24" fill="#d99a22"/><circle cx="392" cy="104" r="20" fill="#315a45"/><path d="M250 172c5-39 25-58 58-58s53 19 58 58M365 172c3-29 17-44 42-44s39 15 42 44" fill="none" stroke={tone} strokeWidth="10" strokeLinecap="round"/></>}
+      {type === 'food' && <><path d="M95 130h155c-8 48-33 72-77 72s-70-24-78-72Z" fill="#fffdf8" stroke={tone} strokeWidth="8"/><path d="M120 92c0-25 18-40 18-65M172 92c0-25 18-40 18-65M224 92c0-25 18-40 18-65" fill="none" stroke="#d99a22" strokeWidth="8" strokeLinecap="round"/><circle cx="360" cy="128" r="55" fill="#f3d9a8" stroke={tone} strokeWidth="8"/><circle cx="360" cy="128" r="24" fill="#d99a22"/></>}
+      {type === 'animals' && <><path d="M110 165c0-56 39-93 94-93s95 37 95 93" fill="#f3d9a8" stroke={tone} strokeWidth="8"/><circle cx="180" cy="115" r="8" fill={tone}/><circle cx="236" cy="115" r="8" fill={tone}/><path d="M195 145c13 10 27 10 40 0" stroke={tone} strokeWidth="8" fill="none" strokeLinecap="round"/><path d="M118 96 72 65M292 95l42-36" stroke={tone} strokeWidth="10" strokeLinecap="round"/></>}
+      {type === 'stories' && <><path d="M85 55h140c28 0 45 18 45 45v82H130c-28 0-45-18-45-45V55Z" fill="#fffdf8" stroke={tone} strokeWidth="8"/><path d="M435 55H295c-28 0-45 18-45 45v82h140c28 0 45-18 45-45V55Z" fill="#fffdf8" stroke={tone} strokeWidth="8"/><path d="M250 75v105" stroke="#d99a22" strokeWidth="8"/></>}
+      {type === 'festivals' && <><path d="M90 175h330" stroke={tone} strokeWidth="8"/><path d="M135 175V90M210 175V60M310 175V100M385 175V72" stroke={tone} strokeWidth="12" strokeLinecap="round"/><path d="m210 60-28 24h56l-28-24ZM385 72l-25 22h50l-25-22Z" fill="#d99a22"/><path d="M120 48c65 18 120 18 185 0s115-18 165 0" stroke="#315a45" strokeWidth="8" fill="none"/></>}
+    </svg>
+  );
 }
 
-function ProfileEditor({ progress, onSave, onClose }: { progress: Progress; onSave: (name: string, avatar: string) => void; onClose: () => void }) {
+function Stat({ label, value }: { label: string; value: string }) {
+  return <div><p className="text-xs font-black uppercase tracking-[0.16em] text-[#6f675f]">{label}</p><p className="mt-2 font-serif text-3xl font-bold">{value}</p></div>;
+}
+
+function ProfileEditor({ progress, onSave, onClose }: { progress: Progress; onSave: (name: string) => void; onClose: () => void }) {
   const [name, setName] = useState(progress.name);
-  const [avatar, setAvatar] = useState(progress.avatar);
-  return <div className="fixed inset-0 z-[90] flex items-end justify-center bg-black/55 p-3 backdrop-blur-sm sm:items-center"><div className="w-full max-w-md rounded-3xl bg-white p-5"><div className="flex justify-between"><h2 className="text-2xl font-black">Kid profile</h2><button onClick={onClose} className="font-black">×</button></div><input value={name} onChange={(event) => setName(event.target.value)} className="mt-5 w-full rounded-2xl border p-4 font-bold" placeholder="Name" /><div className="mt-4 flex gap-3">{['🦁','🐯','🦚','🐘','🐦'].map((item) => <button key={item} onClick={() => setAvatar(item)} className={`rounded-2xl p-3 text-3xl ${avatar === item ? 'bg-amber-200 ring-2 ring-amber-500' : 'bg-slate-100'}`}>{item}</button>)}</div><button onClick={() => onSave(name, avatar)} className="mt-5 w-full rounded-2xl bg-emerald-600 p-4 font-black text-white">Save profile</button></div></div>;
+  return <div className="fixed inset-0 z-[90] flex items-end justify-center bg-black/55 p-3 backdrop-blur-sm sm:items-center"><div className="w-full max-w-md rounded-[1.75rem] bg-[#fffdf8] p-6"><div className="flex justify-between gap-4"><div><p className="sv-kicker">Profile</p><h2 className="mt-2 font-serif text-3xl font-bold">Learner name</h2></div><button onClick={onClose} className="grid h-10 w-10 place-items-center rounded-full border border-black/10 text-xl">×</button></div><input value={name} onChange={(event) => setName(event.target.value)} className="mt-6 w-full rounded-2xl border border-black/10 bg-white p-4 font-bold outline-none focus:border-[#6f1d1b]" placeholder="Name" /><button onClick={() => onSave(name.trim() || 'Punjab Explorer')} className="mt-5 w-full rounded-full bg-[#315a45] p-4 font-black text-white">Save profile</button></div></div>;
 }
