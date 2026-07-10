@@ -3,10 +3,10 @@ export default function SideMenu() {
     { label: 'Home', href: '/' },
     { label: 'Kids Hub', href: '/kids' },
     { label: 'Stories', href: '/storybook' },
-    { label: 'History', href: '/worlds/history' },
+    { label: 'Sikh History', href: '/heritage' },
+    { label: 'Punjab History', href: '/worlds/history' },
     { label: 'Maps', href: '/maps' },
     { label: 'Kids Quiz', href: '/quiz' },
-    { label: 'Heritage', href: '/worlds/sikh-heritage' },
     { label: 'Language', href: '/worlds/language' },
     { label: 'Culture', href: '/worlds/culture' },
   ];
