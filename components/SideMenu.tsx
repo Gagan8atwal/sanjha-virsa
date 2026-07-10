@@ -5,10 +5,10 @@ export default function SideMenu() {
     { label: 'Stories', href: '/storybook' },
     { label: 'Sikh History', href: '/heritage' },
     { label: 'Punjab History', href: '/worlds/history' },
+    { label: 'Living Punjab', href: '/living-punjab' },
     { label: 'Language', href: '/language' },
     { label: 'Maps', href: '/maps' },
     { label: 'Kids Quiz', href: '/quiz' },
-    { label: 'Culture', href: '/worlds/culture' },
   ];
 
   return (
