@@ -1,5 +1,5 @@
-import SikhHistoryTimeline from '../../components/SikhHistoryTimeline';
+import SikhHistoryLibrary from '../../components/SikhHistoryLibrary';
 
 export default function HeritagePage() {
-  return <SikhHistoryTimeline />;
+  return <SikhHistoryLibrary />;
 }
