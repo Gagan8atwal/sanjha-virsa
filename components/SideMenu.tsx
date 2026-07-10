@@ -20,6 +20,7 @@ const groups: NavGroup[] = [
     items: [
       { label: 'Sikh History', href: '/heritage', icon: 'history' },
       { label: 'Punjab History', href: '/worlds/history', icon: 'history' },
+      { label: 'Punjab Cities', href: '/cities', icon: 'map' },
       { label: 'Maps', href: '/maps', icon: 'map' },
     ],
   },
@@ -42,13 +43,7 @@ export default function SideMenu() {
           <span className="block truncate text-sm font-black uppercase tracking-[0.18em] text-[#6f1d1b]">Sanjha Virsa</span>
           <span className="block text-base font-bold text-[#201712]">ਸਾਂਝਾ ਵਿਰਸਾ</span>
         </a>
-        <button
-          type="button"
-          aria-label="Open navigation"
-          aria-expanded={open}
-          onClick={() => setOpen((value) => !value)}
-          className="grid h-11 w-11 place-items-center rounded-full border border-black/10 bg-white text-[#201712] shadow-sm"
-        >
+        <button type="button" aria-label="Open navigation" aria-expanded={open} onClick={() => setOpen((value) => !value)} className="grid h-11 w-11 place-items-center rounded-full border border-black/10 bg-white text-[#201712] shadow-sm">
           {open ? <CloseIcon /> : <MenuIcon />}
         </button>
       </header>
