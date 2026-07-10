@@ -3,7 +3,17 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
+  --sv-ink: #201712;
+  --sv-maroon: #6f1d1b;
+  --sv-mustard: #d99a22;
+  --sv-cream: #f7f0e4;
+  --sv-paper: #fffdf8;
+  --sv-green: #315a45;
+  --sv-navy: #1e3553;
+  --sv-muted: #6f675f;
+  --sv-line: rgba(32, 23, 18, 0.12);
+  --sv-shadow: 0 20px 50px rgba(54, 35, 24, 0.09);
 }
 
 * {
@@ -12,14 +22,92 @@
 
 html {
   scroll-behavior: smooth;
+  background: var(--sv-cream);
 }
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #0f172a;
+  min-height: 100vh;
+  color: var(--sv-ink);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(217, 154, 34, 0.08), transparent 26rem),
+    linear-gradient(180deg, #fbf7ef 0%, var(--sv-cream) 100%);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
+  color: inherit;
   text-decoration: none;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a {
+  touch-action: manipulation;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  color: #fff;
+  background: var(--sv-maroon);
+}
+
+.sv-page {
+  min-height: 100vh;
+  background: transparent;
+}
+
+.sv-container {
+  width: min(100% - 2rem, 76rem);
+  margin-inline: auto;
+}
+
+.sv-card {
+  border: 1px solid var(--sv-line);
+  border-radius: 1.5rem;
+  background: rgba(255, 253, 248, 0.96);
+  box-shadow: var(--sv-shadow);
+}
+
+.sv-kicker {
+  color: var(--sv-maroon);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.sv-title {
+  max-width: 18ch;
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.2rem, 6vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.sv-copy {
+  max-width: 44rem;
+  color: var(--sv-muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+@media (min-width: 1024px) {
+  .sv-shell {
+    padding-left: 17rem;
+  }
 }
