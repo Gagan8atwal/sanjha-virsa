@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import SideMenu from '../components/SideMenu';
+import SiteFooter from '../components/SiteFooter';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './globals.css';
 
@@ -14,7 +15,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <SideMenu />
-        <div className="sv-shell">{children}</div>
+        <div className="sv-shell">
+          {children}
+          <SiteFooter />
+        </div>
       </body>
     </html>
   );
