@@ -80,7 +80,6 @@ export default function PunjabiClothingMuseum() {
               <section>
                 <p className="sv-kicker">How it is worn</p>
                 <p className="mt-4 text-lg font-medium leading-9 text-[#4f473f]">{selected.use}</p>
-
                 <div className="mt-8 border-t border-black/10 pt-8">
                   <p className="sv-kicker">Materials and craft</p>
                   <div className="mt-5 grid gap-3 sm:grid-cols-2">
@@ -93,16 +92,9 @@ export default function PunjabiClothingMuseum() {
                   </div>
                 </div>
               </section>
-
               <aside className="space-y-5">
-                <div className="rounded-[1.5rem] bg-[#201712] p-6 text-white">
-                  <p className="text-xs font-black uppercase tracking-[0.18em] text-[#e7b650]">Category</p>
-                  <p className="mt-4 font-serif text-2xl font-bold">{selected.group}</p>
-                </div>
-                <div className="rounded-[1.5rem] border border-black/10 bg-[#fff8e8] p-6">
-                  <p className="sv-kicker">Region</p>
-                  <p className="mt-4 font-serif text-2xl font-bold">{selected.region}</p>
-                </div>
+                <div className="rounded-[1.5rem] bg-[#201712] p-6 text-white"><p className="text-xs font-black uppercase tracking-[0.18em] text-[#e7b650]">Category</p><p className="mt-4 font-serif text-2xl font-bold">{selected.group}</p></div>
+                <div className="rounded-[1.5rem] border border-black/10 bg-[#fff8e8] p-6"><p className="sv-kicker">Region</p><p className="mt-4 font-serif text-2xl font-bold">{selected.region}</p></div>
               </aside>
             </div>
           </article>
@@ -114,20 +106,105 @@ export default function PunjabiClothingMuseum() {
 
 function ClothingIllustration({ item, compact = false, large = false }: { item: ClothingItem; compact?: boolean; large?: boolean }) {
   const className = compact ? 'h-20 w-20 rounded-2xl border border-black/10 bg-[#f5e7ca]' : large ? 'w-full rounded-[2rem] border border-white/10 bg-[#f5e7ca] p-4 shadow-2xl' : 'w-full rounded-[1.5rem] border border-black/10 bg-[#f5e7ca] p-3';
-  const accent = item.group === 'Men' ? '#1e3553' : item.group === 'Women' ? '#6f1d1b' : '#315a45';
   return (
-    <svg viewBox="0 0 420 300" role="img" aria-label={`${item.name} illustration`} className={className}>
-      <rect width="420" height="300" rx="24" fill="#f5e7ca" />
-      <circle cx="330" cy="58" r="28" fill="#d99a22" />
-      <path d="M0 240C100 195 190 210 280 248C335 272 380 265 420 244V300H0V240Z" fill="#c8a85b" />
-      <circle cx="210" cy="76" r="34" fill="#c98a72" />
-      {item.id === 'turban' && <path d="M162 74c12-54 84-65 102-6-8 20-28 33-55 33-24 0-39-9-47-27Z" fill={accent} />}
-      {item.id === 'paranda' && <><path d="M210 110v104" stroke={accent} strokeWidth="18" strokeLinecap="round"/><path d="M180 218h60l-30 42-30-42Z" fill="#d99a22"/></>}
-      <path d="M150 130c18-20 40-30 60-30s42 10 60 30l28 116H122l28-116Z" fill={accent} />
-      {item.id === 'phulkari' && <g fill="#d99a22"><path d="m165 155 18 18-18 18-18-18 18-18Z"/><path d="m210 155 18 18-18 18-18-18 18-18Z"/><path d="m255 155 18 18-18 18-18-18 18-18Z"/></g>}
-      {item.id === 'salwar' || item.id === 'tehmat' ? <path d="M150 246h120l-18 42h-84l-18-42Z" fill="#fffdf8" stroke={accent} strokeWidth="7" /> : <path d="M165 246h90v42h-90z" fill="#fffdf8" stroke={accent} strokeWidth="7" />}
-      {item.id === 'jutti' && <><path d="M120 257h74c16 0 28 12 28 28h-102v-28Z" fill="#b06a3b"/><path d="M226 257h74v28H198c0-16 12-28 28-28Z" fill="#b06a3b"/></>}
-      {item.id === 'kurta' || item.id === 'kameez' ? <path d="M210 120v126" stroke="#f5e7ca" strokeWidth="7" strokeDasharray="10 9" /> : null}
+    <svg viewBox="0 0 420 320" role="img" aria-label={`${item.name} illustration`} className={className}>
+      <rect width="420" height="320" rx="24" fill="#f5e7ca" />
+      <path d="M0 270C100 225 200 236 292 274C350 298 388 292 420 274V320H0V270Z" fill="#d8bd7b" />
+      {item.id === 'turban' && <TurbanArt />}
+      {item.id === 'kurta' && <KurtaArt />}
+      {item.id === 'tehmat' && <TehmatArt />}
+      {item.id === 'salwar' && <SalwarArt />}
+      {item.id === 'kameez' && <KameezArt />}
+      {item.id === 'phulkari' && <PhulkariArt />}
+      {item.id === 'jutti' && <JuttiArt />}
+      {item.id === 'paranda' && <ParandaArt />}
     </svg>
   );
+}
+
+function TurbanArt() {
+  return <g>
+    <ellipse cx="210" cy="242" rx="90" ry="18" fill="#c7a865" opacity="0.55" />
+    <circle cx="210" cy="150" r="58" fill="#c98a72" />
+    <path d="M143 151c4-70 42-112 70-112 40 0 73 41 66 112-28-16-101-17-136 0Z" fill="#1e3553" />
+    <path d="M151 112c37-24 82-24 119 0M147 132c42-23 88-23 130 0M159 88c31-19 67-19 102 0M177 64c21-11 46-11 68 0" fill="none" stroke="#f3d9a8" strokeWidth="7" strokeLinecap="round" opacity="0.8" />
+    <path d="M183 155c16 10 38 10 54 0" stroke="#5b382c" strokeWidth="4" fill="none" strokeLinecap="round" />
+    <path d="M150 228c16-42 40-61 60-61s44 19 60 61" fill="#fffdf8" stroke="#6f1d1b" strokeWidth="8" />
+  </g>;
+}
+
+function KurtaArt() {
+  return <g>
+    <ellipse cx="210" cy="282" rx="110" ry="16" fill="#c7a865" opacity="0.5" />
+    <path d="M155 70h110l18 44 37 35-26 28-28-24v118H154V153l-28 24-26-28 37-35 18-44Z" fill="#fffdf8" stroke="#1e3553" strokeWidth="8" strokeLinejoin="round" />
+    <path d="M210 70v48M197 95h26" stroke="#6f1d1b" strokeWidth="6" strokeLinecap="round" />
+    <path d="M168 134h84M168 160h84M168 186h84" stroke="#d6c09b" strokeWidth="5" strokeLinecap="round" />
+    <path d="M178 271v28M242 271v28" stroke="#1e3553" strokeWidth="14" strokeLinecap="round" />
+  </g>;
+}
+
+function TehmatArt() {
+  return <g>
+    <ellipse cx="210" cy="282" rx="112" ry="16" fill="#c7a865" opacity="0.5" />
+    <path d="M148 74h124l16 50-20 46H152l-20-46 16-50Z" fill="#fffdf8" stroke="#1e3553" strokeWidth="8" />
+    <path d="M150 164h120l18 110-78 24-78-24 18-110Z" fill="#8a5b1f" stroke="#6f1d1b" strokeWidth="8" />
+    <path d="M165 174c34 24 56 28 90 0M160 204c39 25 61 29 100 0M157 234c43 24 66 26 106 0" fill="none" stroke="#f3d9a8" strokeWidth="6" />
+    <path d="M210 164v125" stroke="#6f1d1b" strokeWidth="6" />
+  </g>;
+}
+
+function SalwarArt() {
+  return <g>
+    <ellipse cx="210" cy="292" rx="112" ry="15" fill="#c7a865" opacity="0.5" />
+    <path d="M132 52h156l-18 77-19 40 44 121h-70l-15-98-15 98h-70l44-121-19-40-18-77Z" fill="#d9a441" stroke="#6f1d1b" strokeWidth="8" strokeLinejoin="round" />
+    <path d="M150 80h120M145 105h130M160 132h100" stroke="#fff5d8" strokeWidth="5" strokeLinecap="round" />
+    <path d="M175 170c15 12 25 17 35 17s20-5 35-17" fill="none" stroke="#6f1d1b" strokeWidth="6" />
+  </g>;
+}
+
+function KameezArt() {
+  return <g>
+    <ellipse cx="210" cy="282" rx="110" ry="16" fill="#c7a865" opacity="0.5" />
+    <path d="M155 62h110l20 48 42 42-29 31-29-28v121H151V155l-29 28-29-31 42-42 20-48Z" fill="#6f1d1b" stroke="#3e1f1c" strokeWidth="8" strokeLinejoin="round" />
+    <path d="M190 62c0 22 8 34 20 34s20-12 20-34" fill="#f5e7ca" />
+    <path d="M210 96v168" stroke="#d99a22" strokeWidth="6" strokeDasharray="12 9" />
+    <path d="M168 138h84M168 172h84M168 206h84" stroke="#f3d9a8" strokeWidth="5" opacity="0.65" />
+    <path d="M173 276v22M247 276v22" stroke="#1e3553" strokeWidth="14" strokeLinecap="round" />
+  </g>;
+}
+
+function PhulkariArt() {
+  return <g>
+    <ellipse cx="210" cy="286" rx="120" ry="16" fill="#c7a865" opacity="0.5" />
+    <path d="M76 52h268v214H76Z" fill="#8e2622" stroke="#5d1714" strokeWidth="8" />
+    <g fill="#d99a22">
+      {[110,170,230,290].map((x) => [86,146,206].map((y) => <path key={`${x}-${y}`} d={`M${x} ${y-18}l18 18-18 18-18-18 18-18Z`} />))}
+    </g>
+    <g stroke="#f3d9a8" strokeWidth="5">
+      <path d="M76 70h268M76 248h268M94 52v214M326 52v214" />
+      <path d="M82 58l256 202M338 58 82 260" opacity="0.35" />
+    </g>
+  </g>;
+}
+
+function JuttiArt() {
+  return <g>
+    <ellipse cx="210" cy="262" rx="126" ry="20" fill="#c7a865" opacity="0.5" />
+    <path d="M54 180c58-31 122-31 173 3 17 11 34 31 41 57H84c-20 0-31-12-30-60Z" fill="#a85d2a" stroke="#5c2c12" strokeWidth="8" />
+    <path d="M366 180c-58-31-122-31-173 3-17 11-34 31-41 57h184c20 0 31-12 30-60Z" fill="#a85d2a" stroke="#5c2c12" strokeWidth="8" />
+    <path d="M80 190c45-18 88-12 130 15M340 190c-45-18-88-12-130 15" fill="none" stroke="#d99a22" strokeWidth="7" strokeLinecap="round" />
+    <path d="M108 214h70M242 214h70" stroke="#f3d9a8" strokeWidth="5" strokeDasharray="9 8" />
+  </g>;
+}
+
+function ParandaArt() {
+  return <g>
+    <ellipse cx="210" cy="286" rx="88" ry="14" fill="#c7a865" opacity="0.5" />
+    <path d="M180 42c18 20 26 44 26 72v95" stroke="#4a2a1d" strokeWidth="20" strokeLinecap="round" />
+    <path d="M240 42c-18 20-26 44-26 72v95" stroke="#4a2a1d" strokeWidth="20" strokeLinecap="round" />
+    <path d="M210 94v136" stroke="#6f1d1b" strokeWidth="22" strokeLinecap="round" />
+    <path d="M210 105v118" stroke="#d99a22" strokeWidth="5" strokeDasharray="10 10" />
+    <path d="M170 224h80l-18 52-22-22-22 22-18-52Z" fill="#d99a22" stroke="#6f1d1b" strokeWidth="7" />
+    <circle cx="210" cy="236" r="10" fill="#fff3d9" />
+  </g>;
 }
