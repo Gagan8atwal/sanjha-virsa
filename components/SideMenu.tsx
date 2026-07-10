@@ -5,9 +5,9 @@ export default function SideMenu() {
     { label: 'Stories', href: '/storybook' },
     { label: 'Sikh History', href: '/heritage' },
     { label: 'Punjab History', href: '/worlds/history' },
+    { label: 'Language', href: '/language' },
     { label: 'Maps', href: '/maps' },
     { label: 'Kids Quiz', href: '/quiz' },
-    { label: 'Language', href: '/worlds/language' },
     { label: 'Culture', href: '/worlds/culture' },
   ];
 
