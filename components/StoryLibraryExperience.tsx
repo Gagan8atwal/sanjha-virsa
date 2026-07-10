@@ -4,12 +4,12 @@ import { useEffect, useMemo, useState } from 'react';
 import type { Story } from '../lib/stories';
 
 const shelves = [
-  { title: 'Guru Stories', icon: '☬', description: 'Values, courage, seva, equality, and Sikh heritage.' },
-  { title: 'Punjab History', icon: '🏛️', description: 'Rivers, cities, migration, memory, and historic eras.' },
-  { title: 'Bedtime Stories', icon: '🌙', description: 'Short comforting stories families can read together.' },
-  { title: 'Folk Tales', icon: '🥁', description: 'Village wisdom, bravery, animals, and Punjabi imagination.' },
-  { title: 'Language Adventures', icon: 'ਅ', description: 'Stories that make Gurmukhi and Punjabi words memorable.' },
-  { title: 'Family Values', icon: '🏡', description: 'Respect, sharing, honesty, courage, and responsibility.' },
+  { title: 'Guru Stories', description: 'Values, courage, seva, equality, and Sikh heritage.' },
+  { title: 'Punjab History', description: 'Rivers, cities, migration, memory, and historic eras.' },
+  { title: 'Bedtime Stories', description: 'Short comforting stories families can read together.' },
+  { title: 'Folk Tales', description: 'Village wisdom, bravery, animals, and Punjabi imagination.' },
+  { title: 'Language Adventures', description: 'Stories that make Gurmukhi and Punjabi words memorable.' },
+  { title: 'Family Values', description: 'Respect, sharing, honesty, courage, and responsibility.' },
 ];
 
 export default function StoryLibraryExperience({ stories }: { stories: Story[] }) {
@@ -34,82 +34,99 @@ export default function StoryLibraryExperience({ stories }: { stories: Story[] }
   const continueStory = stories.find((story) => story.id === lastStory) || stories[0];
 
   return (
-    <main className="min-h-screen bg-[#130d0a] text-white">
-      <section className="relative overflow-hidden bg-[radial-gradient(circle_at_15%_15%,#f59e0b55,transparent_24%),radial-gradient(circle_at_85%_10%,#7c3aed55,transparent_26%),linear-gradient(135deg,#24160f,#450a0a_55%,#111827)]">
-        <div className="mx-auto max-w-7xl px-5 py-10 md:px-8">
-          <p className="text-xs font-black uppercase tracking-[0.35em] text-amber-300">Punjabi Story Library</p>
-          <div className="mt-4 grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-            <div>
-              <h1 className="text-5xl font-black leading-[0.95] md:text-7xl">Stories children choose themselves.</h1>
-              <p className="mt-6 max-w-2xl text-lg font-semibold leading-8 text-slate-200">Pick a cover, flip pages, switch between English and Punjabi, listen aloud, collect words, and continue where you stopped.</p>
-              <div className="mt-7 flex flex-wrap gap-3">
-                <a href={`/storybook/${continueStory.id}`} className="rounded-2xl bg-amber-300 px-6 py-4 font-black text-slate-950 shadow-xl transition hover:scale-105">Continue reading</a>
-                <a href="#story-shelves" className="rounded-2xl bg-white/10 px-6 py-4 font-black text-white ring-1 ring-white/20">Browse stories</a>
-              </div>
+    <main className="sv-page">
+      <section className="border-b border-black/10 bg-[#201712] text-white">
+        <div className="sv-container grid gap-10 py-14 md:py-20 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.24em] text-[#e7b650]">Punjabi story library</p>
+            <h1 className="mt-5 max-w-[11ch] font-serif text-5xl font-bold leading-[0.97] tracking-[-0.04em] md:text-7xl">Stories that children can read, remember, and discuss.</h1>
+            <p className="mt-6 max-w-2xl text-base font-medium leading-8 text-white/65">Meaningful bilingual stories with clear themes, simple reading flow, and family questions.</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href={`/storybook/${continueStory.id}`} className="rounded-full bg-[#e7b650] px-6 py-3.5 text-sm font-black text-[#201712]">Continue reading</a>
+              <a href="#story-library" className="rounded-full border border-white/20 px-6 py-3.5 text-sm font-black text-white">Browse stories</a>
             </div>
-
-            <a href={`/storybook/${continueStory.id}`} className="group overflow-hidden rounded-[2rem] bg-white text-slate-950 shadow-2xl ring-4 ring-white/15 transition hover:-translate-y-1">
-              <div className="bg-[linear-gradient(135deg,#7f1d1d,#f59e0b)] p-6 text-white">
-                <div className="flex items-start justify-between"><span className="text-7xl">{continueStory.emoji}</span><span className="rounded-full bg-white/20 px-3 py-2 text-xs font-black">Continue</span></div>
-                <h2 className="mt-8 text-4xl font-black">{continueStory.title}</h2>
-                <p className="mt-2 text-2xl font-black text-amber-100">{continueStory.punjabi}</p>
-              </div>
-              <div className="p-6">
-                <p className="text-sm font-semibold leading-7 text-slate-700">{continueStory.theme}</p>
-                <div className="mt-5 h-3 overflow-hidden rounded-full bg-slate-200"><div className="h-full w-2/3 rounded-full bg-gradient-to-r from-red-700 to-amber-400" /></div>
-                <p className="mt-3 font-black text-red-800 group-hover:underline">Open your book →</p>
-              </div>
-            </a>
           </div>
+
+          <a href={`/storybook/${continueStory.id}`} className="group overflow-hidden rounded-[2rem] border border-white/10 bg-[#fffdf8] text-[#201712] shadow-2xl transition hover:-translate-y-0.5">
+            <StoryCover story={continueStory} featured />
+            <div className="p-6">
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-[#6f1d1b]">Continue your book</p>
+              <h2 className="mt-3 font-serif text-3xl font-bold leading-tight">{continueStory.title}</h2>
+              <p className="mt-1 text-xl font-black text-[#6f1d1b]">{continueStory.punjabi}</p>
+              <p className="mt-4 text-sm font-medium leading-7 text-[#6f675f]">{continueStory.theme}</p>
+              <p className="mt-5 text-sm font-black text-[#315a45] group-hover:underline">Open story</p>
+            </div>
+          </a>
         </div>
       </section>
 
-      <section id="story-shelves" className="mx-auto max-w-7xl px-5 py-10 md:px-8">
-        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <section id="story-library" className="sv-container py-14 md:py-20">
+        <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.3em] text-amber-300">Find a story</p>
-            <h2 className="mt-2 text-4xl font-black">Choose your world</h2>
+            <p className="sv-kicker">Find a story</p>
+            <h2 className="mt-3 font-serif text-4xl font-bold tracking-[-0.03em] md:text-5xl">Choose one story at a time.</h2>
+            <p className="sv-copy mt-4">Search by title, theme, Punjabi name, or category.</p>
           </div>
-          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search stories..." className="rounded-2xl bg-white px-4 py-3 font-bold text-slate-950 outline-none ring-2 ring-white/10 focus:ring-amber-300 md:w-80" />
+          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search stories" className="w-full rounded-full border border-black/10 bg-[#fffdf8] px-5 py-3.5 font-semibold outline-none focus:border-[#6f1d1b] lg:w-80" />
         </div>
 
         <div className="mt-6 flex gap-2 overflow-x-auto pb-2">
-          {categories.map((item) => <button key={item} onClick={() => setCategory(item)} className={`min-w-max rounded-full px-4 py-2 text-sm font-black transition ${category === item ? 'bg-amber-300 text-slate-950' : 'bg-white/10 text-white ring-1 ring-white/10 hover:bg-white/20'}`}>{item}</button>)}
+          {categories.map((item) => <button key={item} onClick={() => setCategory(item)} className={`min-w-max rounded-full px-4 py-2 text-sm font-black transition ${category === item ? 'bg-[#201712] text-white' : 'border border-black/10 bg-[#fffdf8] text-[#4f473f]'}`}>{item}</button>)}
         </div>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {filtered.map((story) => {
             const done = completed.includes(story.id);
             return (
-              <a key={story.id} href={`/storybook/${story.id}`} className="group overflow-hidden rounded-[2rem] bg-white text-slate-950 shadow-lg ring-1 ring-white/10 transition hover:-translate-y-1 hover:shadow-2xl">
-                <div className="relative min-h-64 bg-[radial-gradient(circle_at_top_left,#fde68a55,transparent_28%),linear-gradient(135deg,#7f1d1d,#f59e0b)] p-5 text-white">
-                  <div className="flex items-start justify-between"><span className="text-6xl">{story.emoji}</span><span className="rounded-full bg-white/20 px-3 py-1 text-xs font-black">{story.age}</span></div>
-                  <div className="absolute bottom-5 left-5 right-5">
-                    <p className="text-xs font-black uppercase tracking-[0.25em] text-amber-100">{story.category}</p>
-                    <h3 className="mt-2 text-3xl font-black leading-tight">{story.title}</h3>
-                    <p className="mt-2 text-xl font-black text-amber-100">{story.punjabi}</p>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <div className="flex items-center justify-between text-xs font-black text-slate-500"><span>{story.pages.length} pages</span><span>{Math.max(2, story.pages.length * 2)} min</span></div>
-                  <p className="mt-3 text-sm font-semibold leading-6 text-slate-700">{story.theme}</p>
-                  <div className={`mt-5 rounded-2xl px-4 py-3 text-center font-black ${done ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-300 text-slate-950 group-hover:bg-amber-200'}`}>{done ? 'Read again' : 'Read story'}</div>
+              <a key={story.id} href={`/storybook/${story.id}`} className="group overflow-hidden rounded-[1.75rem] border border-black/10 bg-[#fffdf8] shadow-[0_16px_38px_rgba(54,35,24,0.07)] transition hover:-translate-y-0.5 hover:shadow-xl">
+                <StoryCover story={story} />
+                <div className="p-6">
+                  <div className="flex items-center justify-between gap-3 text-xs font-black uppercase tracking-[0.14em] text-[#6f675f]"><span>{story.category}</span><span>{story.age}</span></div>
+                  <h3 className="mt-4 font-serif text-3xl font-bold leading-tight">{story.title}</h3>
+                  <p className="mt-1 text-xl font-black text-[#6f1d1b]">{story.punjabi}</p>
+                  <p className="mt-4 text-sm font-medium leading-7 text-[#6f675f]">{story.theme}</p>
+                  <div className="mt-5 flex items-center justify-between border-t border-black/10 pt-4 text-sm font-black"><span>{story.pages.length} pages</span><span className="text-[#315a45] group-hover:underline">{done ? 'Read again' : 'Read story'}</span></div>
                 </div>
               </a>
             );
           })}
         </div>
 
-        {filtered.length === 0 && <div className="mt-8 rounded-[2rem] bg-white/10 p-8 text-center ring-1 ring-white/10"><p className="text-4xl">📚</p><h3 className="mt-3 text-2xl font-black">No story found</h3><p className="mt-2 text-slate-300">Try another word or category.</p></div>}
+        {filtered.length === 0 && <div className="mt-10 rounded-[1.75rem] border border-black/10 bg-[#fffdf8] p-8 text-center"><h3 className="font-serif text-2xl font-bold">No story found</h3><p className="mt-2 text-sm font-medium text-[#6f675f]">Try another title, theme, or category.</p></div>}
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-16 md:px-8">
-        <p className="text-xs font-black uppercase tracking-[0.3em] text-amber-300">Story shelves</p>
-        <h2 className="mt-2 text-4xl font-black">A library built to keep growing</h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {shelves.map((shelf) => <div key={shelf.title} className="rounded-[2rem] bg-white/10 p-6 ring-1 ring-white/10 transition hover:bg-white/15"><p className="text-5xl">{shelf.icon}</p><h3 className="mt-4 text-2xl font-black">{shelf.title}</h3><p className="mt-2 text-sm font-semibold leading-6 text-slate-300">{shelf.description}</p></div>)}
+      <section className="border-y border-black/10 bg-[#fffdf8]">
+        <div className="sv-container py-14 md:py-20">
+          <div className="max-w-3xl">
+            <p className="sv-kicker">Library shelves</p>
+            <h2 className="mt-3 font-serif text-4xl font-bold tracking-[-0.03em]">A growing collection for different ages and interests.</h2>
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {shelves.map((shelf, index) => <div key={shelf.title} className="rounded-[1.5rem] border border-black/10 bg-[#f9f3e8] p-6"><div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#201712] text-sm font-black text-white">{index + 1}</div><h3 className="mt-5 font-serif text-2xl font-bold">{shelf.title}</h3><p className="mt-3 text-sm font-medium leading-7 text-[#6f675f]">{shelf.description}</p></div>)}
+          </div>
         </div>
       </section>
     </main>
+  );
+}
+
+function StoryCover({ story, featured = false }: { story: Story; featured?: boolean }) {
+  const category = story.category.toLowerCase();
+  const tone = category.includes('guru') ? '#1e3553' : category.includes('history') ? '#6f1d1b' : category.includes('folk') ? '#315a45' : category.includes('language') ? '#8a5b1f' : '#5b3d76';
+  return (
+    <svg viewBox="0 0 720 420" role="img" aria-label={`Illustrated cover for ${story.title}`} className={featured ? 'h-72 w-full' : 'h-60 w-full'}>
+      <rect width="720" height="420" fill="#f5e7ca" />
+      <circle cx="590" cy="90" r="52" fill="#d99a22" opacity="0.88" />
+      <path d="M0 270C125 205 235 228 350 278C480 334 585 305 720 245V420H0V270Z" fill="#c8a85b" />
+      <path d="M0 330C140 280 260 305 380 348C505 392 620 370 720 330V420H0V330Z" fill={tone} opacity="0.92" />
+      <path d="M95 300h190v120H95z" fill="#f3d9a8" />
+      <path d="m72 302 118-88 118 88H72Z" fill={tone} />
+      <rect x="164" y="340" width="54" height="80" rx="4" fill="#6f1d1b" />
+      <path d="M420 334c0-70 38-122 92-158" stroke="#315a45" strokeWidth="18" fill="none" strokeLinecap="round" />
+      <path d="M505 160c42 10 64 46 49 81-44-7-68-41-49-81Z" fill="#315a45" />
+      <path d="M462 214c-37 3-60 30-54 61 38 0 63-25 54-61Z" fill="#7c9b62" />
+      <rect x="360" y="290" width="195" height="92" rx="16" fill="#fffdf8" opacity="0.9" />
+      <path d="M390 320h130M390 348h95" stroke={tone} strokeWidth="12" strokeLinecap="round" opacity="0.65" />
+    </svg>
   );
 }
