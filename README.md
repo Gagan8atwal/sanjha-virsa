@@ -10,7 +10,7 @@ Sanjha Virsa means shared heritage. The goal is to help Punjabi children growing
 
 This repository now has a working Next.js foundation that deploys on Vercel.
 
-Latest production content includes the Cultural Objects Museum and Punjabi Folk Dance Museum routes.
+Latest production content includes the Cultural Objects Museum, Punjabi Folk Dance Museum, and Punjabi Architecture Museum routes.
 
 ## Stack
 
