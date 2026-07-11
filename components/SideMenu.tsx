@@ -36,6 +36,7 @@ const groups: NavGroup[] = [
       { label: 'Festivals Museum', href: '/festivals', icon: 'culture' },
       { label: 'Village Life Museum', href: '/village-life', icon: 'culture' },
       { label: 'Traditional Games', href: '/games', icon: 'culture' },
+      { label: 'Cultural Objects', href: '/objects', icon: 'culture' },
     ],
   },
 ];
