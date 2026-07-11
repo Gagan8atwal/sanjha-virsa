@@ -6,7 +6,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Sanjha Virsa | Punjabi Heritage Learning',
-  description: 'A free multilingual platform for Punjabi language, history, culture, and heritage.',
+  description: 'Explore Punjabi language, history, cities, culture, museums, stories, and heritage.',
   themeColor: '#201712',
 };
 
