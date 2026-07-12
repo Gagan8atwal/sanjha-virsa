@@ -15,6 +15,14 @@ type Writer = {
   legacy: string;
 };
 
+type OralForm = {
+  name: string;
+  punjabi: string;
+  meaning: string;
+  setting: string;
+  shape: 'scroll' | 'voice' | 'shield' | 'circle' | 'rhythm' | 'story';
+};
+
 const writers: Writer[] = [
   {
     id: 'waris-shah',
@@ -102,6 +110,15 @@ const writers: Writer[] = [
   },
 ];
 
+const oralForms: OralForm[] = [
+  { name: 'Qissa', punjabi: 'ਕਿੱਸਾ', meaning: 'Long narrative poetry carrying love stories, moral conflict, memory, and social observation.', setting: 'Recitation, singing, gatherings, and written manuscripts', shape: 'scroll' },
+  { name: 'Kafi', punjabi: 'ਕਾਫ਼ੀ', meaning: 'Compact spiritual verse built for reflection, repetition, melody, and a direct emotional voice.', setting: 'Shrines, mehfils, folk and classical singing', shape: 'voice' },
+  { name: 'Vaar', punjabi: 'ਵਾਰ', meaning: 'Heroic or historical ballad recounting courage, conflict, sacrifice, and collective memory.', setting: 'Dhadi performance, public remembrance, and community history', shape: 'shield' },
+  { name: 'Boliyan', punjabi: 'ਬੋਲੀਆਂ', meaning: 'Short responsive verses that can be playful, satirical, celebratory, personal, or sharply observant.', setting: 'Giddha, weddings, village celebrations, and family gatherings', shape: 'circle' },
+  { name: 'Tappe', punjabi: 'ਟੱਪੇ', meaning: 'Brief lyrical couplets known for rhythm, longing, wit, courtship, and emotional compression.', setting: 'Folk singing, fairs, social gatherings, and performance', shape: 'rhythm' },
+  { name: 'Lok Kahani', punjabi: 'ਲੋਕ ਕਹਾਣੀ', meaning: 'Folk tales preserving practical wisdom, humor, wonder, family values, and local imagination.', setting: 'Homes, winter evenings, children’s learning, and village storytelling', shape: 'story' },
+];
+
 const traditions = ['All', 'Classical', 'Spiritual', 'Modern', 'Progressive'] as const;
 
 export default function PunjabiLiteratureMuseum() {
@@ -134,12 +151,7 @@ export default function PunjabiLiteratureMuseum() {
       <section className="sv-container py-8">
         <div className="flex gap-2 overflow-x-auto pb-2" aria-label="Filter writers by tradition">
           {traditions.map((value) => (
-            <button
-              key={value}
-              type="button"
-              onClick={() => chooseTradition(value)}
-              className={`min-w-max rounded-full px-5 py-3 text-sm font-black ${tradition === value ? 'bg-[#201712] text-white' : 'border border-black/10 bg-[#fffdf8]'}`}
-            >
+            <button key={value} type="button" onClick={() => chooseTradition(value)} className={`min-w-max rounded-full px-5 py-3 text-sm font-black ${tradition === value ? 'bg-[#201712] text-white' : 'border border-black/10 bg-[#fffdf8]'}`}>
               {value}
             </button>
           ))}
@@ -150,12 +162,7 @@ export default function PunjabiLiteratureMuseum() {
         <div className="grid gap-8 lg:grid-cols-[22rem_1fr]">
           <aside className="space-y-3 lg:sticky lg:top-6 lg:self-start">
             {visible.map((writer) => (
-              <button
-                key={writer.id}
-                type="button"
-                onClick={() => setSelected(writer)}
-                className={`grid w-full grid-cols-[5rem_1fr] items-center gap-4 rounded-[1.5rem] border p-4 text-left transition ${selected.id === writer.id ? 'border-[#293f36] bg-[#f4f1df] shadow-lg' : 'border-black/10 bg-[#fffdf8] hover:-translate-y-0.5'}`}
-              >
+              <button key={writer.id} type="button" onClick={() => setSelected(writer)} className={`grid w-full grid-cols-[5rem_1fr] items-center gap-4 rounded-[1.5rem] border p-4 text-left transition ${selected.id === writer.id ? 'border-[#293f36] bg-[#f4f1df] shadow-lg' : 'border-black/10 bg-[#fffdf8] hover:-translate-y-0.5'}`}>
                 <LiteratureArt writer={writer} compact />
                 <div>
                   <p className="font-serif text-xl font-bold">{writer.name}</p>
@@ -208,6 +215,39 @@ export default function PunjabiLiteratureMuseum() {
           </article>
         </div>
       </section>
+
+      <section className="border-t border-black/10 bg-[#f0e5d4]">
+        <div className="sv-container py-14 md:py-20">
+          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+            <div>
+              <p className="sv-kicker">Living oral literature</p>
+              <h2 className="mt-4 max-w-[12ch] font-serif text-4xl font-bold tracking-[-0.03em] md:text-6xl">Punjabi literature was heard before it was collected.</h2>
+            </div>
+            <p className="max-w-2xl text-base font-medium leading-8 text-[#5f564d]">Stories, songs, heroic ballads, short verses, and spiritual poetry moved through homes, farms, fairs, shrines, weddings, and public gatherings. These forms kept language alive across generations and across both Gurmukhi and Shahmukhi literary worlds.</p>
+          </div>
+
+          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {oralForms.map((form) => (
+              <article key={form.name} className="overflow-hidden rounded-[1.75rem] border border-black/10 bg-[#fffdf8] shadow-[0_14px_38px_rgba(54,35,24,0.08)]">
+                <div className="grid grid-cols-[7rem_1fr] items-center gap-4 bg-[#fff8e8] p-5">
+                  <OralFormArt form={form} />
+                  <div>
+                    <h3 className="font-serif text-3xl font-bold">{form.name}</h3>
+                    <p className="mt-1 text-2xl font-black text-[#6f1d1b]">{form.punjabi}</p>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-base font-medium leading-7 text-[#4f473f]">{form.meaning}</p>
+                  <div className="mt-5 border-t border-black/10 pt-5">
+                    <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a5b1f]">Where it lived</p>
+                    <p className="mt-2 text-sm font-semibold leading-6 text-[#5f564d]">{form.setting}</p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
@@ -232,6 +272,20 @@ function LiteratureArt({ writer, compact = false, large = false }: { writer: Wri
       <path d="M102 126h76M102 152h88M102 178h68M242 126h76M230 152h88M250 178h68" stroke="#8a8177" strokeWidth="6" strokeLinecap="round" />
       <path d="M274 66c18 0 32 14 32 32 0 12-6 22-15 28l-4 25h-26l-4-25c-9-6-15-16-15-28 0-18 14-32 32-32Z" fill={accent} opacity="0.92" />
       <path d="M260 100h28" stroke="#f5e7ca" strokeWidth="5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function OralFormArt({ form }: { form: OralForm }) {
+  return (
+    <svg viewBox="0 0 120 120" role="img" aria-label={`${form.name} illustration`} className="h-28 w-28 rounded-2xl border border-black/10 bg-[#f5e7ca]">
+      <rect width="120" height="120" rx="18" fill="#f5e7ca" />
+      {form.shape === 'scroll' && <><path d="M30 28h54v64H30z" fill="#fffdf8" stroke="#8a5b1f" strokeWidth="5"/><path d="M38 44h38M38 58h34M38 72h28" stroke="#6f675f" strokeWidth="4" strokeLinecap="round"/><path d="M25 28c0-8 10-8 10 0M79 92c0 8 10 8 10 0" stroke="#6f1d1b" strokeWidth="5"/></>}
+      {form.shape === 'voice' && <><path d="M36 72c0-20 12-34 26-34s26 14 26 34" fill="none" stroke="#6f1d1b" strokeWidth="7"/><path d="M26 56c-8 8-8 24 0 32M96 56c8 8 8 24 0 32" fill="none" stroke="#8a5b1f" strokeWidth="5" strokeLinecap="round"/><circle cx="62" cy="72" r="14" fill="#d99a22"/></>}
+      {form.shape === 'shield' && <><path d="M60 22 94 34v26c0 24-14 38-34 46-20-8-34-22-34-46V34l34-12Z" fill="#293f36" stroke="#8a5b1f" strokeWidth="5"/><path d="M42 69 55 82l24-30" fill="none" stroke="#f5e7ca" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round"/></>}
+      {form.shape === 'circle' && <><circle cx="60" cy="60" r="34" fill="none" stroke="#6f1d1b" strokeWidth="7"/><circle cx="60" cy="28" r="7" fill="#d99a22"/><circle cx="88" cy="72" r="7" fill="#315a45"/><circle cx="32" cy="72" r="7" fill="#8a5b1f"/><path d="M38 45 82 78M82 45 38 78" stroke="#6f675f" strokeWidth="5" strokeLinecap="round"/></>}
+      {form.shape === 'rhythm' && <><path d="M28 82c12-30 22-42 32-42s20 12 32 42" fill="none" stroke="#293f36" strokeWidth="7" strokeLinecap="round"/><path d="M24 52h18M78 52h18M36 32v18M84 32v18" stroke="#d99a22" strokeWidth="5" strokeLinecap="round"/><circle cx="60" cy="82" r="12" fill="#6f1d1b"/></>}
+      {form.shape === 'story' && <><path d="M24 36c18-8 30-5 36 3v50c-10-8-22-10-36-4V36Z" fill="#fffdf8" stroke="#293f36" strokeWidth="5"/><path d="M96 36c-18-8-30-5-36 3v50c10-8 22-10 36-4V36Z" fill="#fff8e8" stroke="#293f36" strokeWidth="5"/><path d="M60 39v50" stroke="#293f36" strokeWidth="4"/><circle cx="60" cy="26" r="9" fill="#d99a22"/></>}
     </svg>
   );
 }
