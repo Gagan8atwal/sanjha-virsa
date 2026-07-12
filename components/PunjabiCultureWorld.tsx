@@ -1,128 +1,15 @@
 'use client';
-
-import { useMemo, useRef, useState } from 'react';
-
-type Item = { name: string; pa: string; emoji: string; detail: string };
-type Topic = { id: string; title: string; punjabi: string; emoji: string; summary: string; items: Item[] };
-
-const topics: Topic[] = [
-  { id: 'food', title: 'Food', punjabi: 'ਖਾਣਾ', emoji: '🍲', summary: 'Everyday meals, seasonal foods, sweets, drinks, and hospitality.', items: [
-    { name: 'Saag', pa: 'ਸਾਗ', emoji: '🥬', detail: 'A winter greens dish often served with makki di roti.' },
-    { name: 'Lassi', pa: 'ਲੱਸੀ', emoji: '🥛', detail: 'A yogurt drink connected with hospitality and summer refreshment.' },
-    { name: 'Pinni', pa: 'ਪਿੰਨੀ', emoji: '🍪', detail: 'A rich winter sweet made with ghee, flour, and nuts.' },
-    { name: 'Kheer', pa: 'ਖੀਰ', emoji: '🍚', detail: 'A milk and rice dessert served at family and religious gatherings.' },
-  ]},
-  { id: 'clothing', title: 'Clothing', punjabi: 'ਪਹਿਰਾਵਾ', emoji: '👳', summary: 'Regional dress, craft, identity, and celebration clothing.', items: [
-    { name: 'Phulkari', pa: 'ਫੁਲਕਾਰੀ', emoji: '🧵', detail: 'A Punjabi embroidery tradition with family, regional, and ceremonial meaning.' },
-    { name: 'Turban', pa: 'ਪੱਗ', emoji: '👳', detail: 'Turban styles vary by region, community, purpose, and occasion.' },
-    { name: 'Jutti', pa: 'ਜੁੱਤੀ', emoji: '👞', detail: 'Handcrafted footwear known for leather work and decorative embroidery.' },
-    { name: 'Paranda', pa: 'ਪਰਾਂਦਾ', emoji: '🎀', detail: 'A decorative hair accessory remembered in dress, dance, and folk songs.' },
-  ]},
-  { id: 'music', title: 'Music', punjabi: 'ਸੰਗੀਤ', emoji: '🥁', summary: 'Instruments, folk voices, rhythm, boliyan, and performance.', items: [
-    { name: 'Dhol', pa: 'ਢੋਲ', emoji: '🥁', detail: 'A powerful drum used in bhangra, celebrations, and gatherings.' },
-    { name: 'Tumbi', pa: 'ਤੂੰਬੀ', emoji: '🎸', detail: 'A one-string folk instrument with a sharp, recognizable sound.' },
-    { name: 'Algoza', pa: 'ਅਲਗੋਜ਼ਾ', emoji: '🎶', detail: 'A paired flute instrument strongly associated with Punjabi folk music.' },
-    { name: 'Boliyan', pa: 'ਬੋਲੀਆਂ', emoji: '🎤', detail: 'Short lyrical verses used especially in giddha and wedding celebrations.' },
-  ]},
-  { id: 'dance', title: 'Dance', punjabi: 'ਨੱਚ', emoji: '💃', summary: 'Movement, rhythm, work, humor, and celebration.', items: [
-    { name: 'Bhangra', pa: 'ਭੰਗੜਾ', emoji: '🕺', detail: 'A Punjabi dance tradition associated with energy, rhythm, and harvest imagery.' },
-    { name: 'Giddha', pa: 'ਗਿੱਧਾ', emoji: '💃', detail: 'A women’s dance tradition centered on boliyan, expression, humor, and memory.' },
-    { name: 'Jhumar', pa: 'ਝੂਮਰ', emoji: '🌀', detail: 'A graceful folk dance associated with western Punjab regions.' },
-    { name: 'Sammi', pa: 'ਸੰਮੀ', emoji: '🌙', detail: 'A traditional women’s folk dance known in parts of Punjab.' },
-  ]},
-  { id: 'weddings', title: 'Weddings', punjabi: 'ਵਿਆਹ', emoji: '💍', summary: 'Songs, clothing, food, family roles, and changing customs.', items: [
-    { name: 'Jaggo', pa: 'ਜਾਗੋ', emoji: '🏺', detail: 'A lively pre-wedding tradition involving singing and celebration.' },
-    { name: 'Maiyan', pa: 'ਮਾਈਆਂ', emoji: '🟡', detail: 'Pre-wedding customs involving family gathering and turmeric traditions.' },
-    { name: 'Sehra', pa: 'ਸਿਹਰਾ', emoji: '🌸', detail: 'A groom-related wedding adornment used in some Punjabi traditions.' },
-    { name: 'Suhag Songs', pa: 'ਸੁਹਾਗ', emoji: '🎵', detail: 'Wedding songs carrying emotion, humor, blessing, and oral history.' },
-  ]},
-  { id: 'games', title: 'Traditional Games', punjabi: 'ਰਵਾਇਤੀ ਖੇਡਾਂ', emoji: '🤼', summary: 'Physical games, strategy, and village childhood activities.', items: [
-    { name: 'Kabaddi', pa: 'ਕਬੱਡੀ', emoji: '🤼', detail: 'A team sport requiring breath control, strength, strategy, and agility.' },
-    { name: 'Gulli Danda', pa: 'ਗੁੱਲੀ ਡੰਡਾ', emoji: '🏏', detail: 'A traditional outdoor striking game played with two wooden pieces.' },
-    { name: 'Pithu Garam', pa: 'ਪਿੱਠੂ ਗਰਮ', emoji: '🪨', detail: 'A team game involving stacked stones, throwing, and rebuilding.' },
-    { name: 'Kikli', pa: 'ਕਿੱਕਲੀ', emoji: '👭', detail: 'A spinning girls’ game often accompanied by songs.' },
-  ]},
-  { id: 'arts', title: 'Folk Arts', punjabi: 'ਲੋਕ ਕਲਾ', emoji: '🎨', summary: 'Embroidery, pottery, woodwork, and decorative traditions.', items: [
-    { name: 'Embroidery', pa: 'ਕੜ੍ਹਾਈ', emoji: '🪡', detail: 'Embroidery carries regional design, family memory, and ceremonial value.' },
-    { name: 'Pottery', pa: 'ਮਿੱਟੀ ਦੇ ਭਾਂਡੇ', emoji: '🏺', detail: 'Clay vessels supported cooking, storage, and water cooling.' },
-    { name: 'Woodwork', pa: 'ਲੱਕੜ ਦਾ ਕੰਮ', emoji: '🪵', detail: 'Woodcraft appeared in doors, furniture, farm tools, and household objects.' },
-    { name: 'Charpai Weaving', pa: 'ਮੰਜਾ ਬੁਣਾਈ', emoji: '🛏️', detail: 'Charpai weaving combines utility, color, skill, and courtyard life.' },
-  ]},
-  { id: 'modern', title: 'Modern Punjabi Life', punjabi: 'ਆਧੁਨਿਕ ਪੰਜਾਬੀ ਜੀਵਨ', emoji: '🌍', summary: 'Cities, diaspora, media, migration, and new identities.', items: [
-    { name: 'Diaspora', pa: 'ਪਰਵਾਸ', emoji: '✈️', detail: 'Punjabi communities abroad preserve culture while adapting to new societies.' },
-    { name: 'Cinema', pa: 'ਸਿਨੇਮਾ', emoji: '🎬', detail: 'Punjabi cinema reflects humor, migration, family, music, and social change.' },
-    { name: 'Urban Punjab', pa: 'ਸ਼ਹਿਰੀ ਪੰਜਾਬ', emoji: '🏙️', detail: 'Modern cities mix industry, education, technology, food, and tradition.' },
-    { name: 'Digital Culture', pa: 'ਡਿਜ਼ਿਟਲ ਸਭਿਆਚਾਰ', emoji: '📱', detail: 'Music, language, stories, and identity now travel through digital platforms.' },
-  ]},
+import {useEffect,useMemo,useState} from 'react';
+type Item={n:string;p:string;d:string;k:string};type Topic={id:string;n:string;p:string;s:string;k:string;i:Item[]};
+const T:Topic[]=[
+{id:'food',n:'Food',p:'ਖਾਣਾ',s:'Meals, seasonal foods, farming, sweets, drinks, and hospitality.',k:'bowl',i:[['Saag','ਸਾਗ','Winter greens served with makki di roti.','leaf'],['Lassi','ਲੱਸੀ','A yogurt drink tied to hospitality and summer refreshment.','cup'],['Pinni','ਪਿੰਨੀ','A winter sweet made with ghee, flour, and nuts.','sweet'],['Kheer','ਖੀਰ','A milk and rice dessert for family and religious gatherings.','bowl']].map(([n,p,d,k])=>({n,p,d,k}))},
+{id:'clothing',n:'Clothing',p:'ਪਹਿਰਾਵਾ',s:'Regional dress, craft, identity, and celebration clothing.',k:'cloth',i:[['Phulkari','ਫੁਲਕਾਰੀ','Embroidery carrying family, regional, and ceremonial meaning.','pattern'],['Turban','ਪੱਗ','Styles vary by region, community, purpose, and occasion.','turban'],['Jutti','ਜੁੱਤੀ','Handcrafted footwear with leather work and embroidery.','shoe'],['Paranda','ਪਰਾਂਦਾ','A decorative hair accessory remembered in dress, dance, and song.','braid']].map(([n,p,d,k])=>({n,p,d,k}))},
+{id:'music',n:'Music',p:'ਸੰਗੀਤ',s:'Instruments, folk voices, rhythm, boliyan, and performance.',k:'drum',i:[['Dhol','ਢੋਲ','A powerful drum used in bhangra and celebrations.','drum'],['Tumbi','ਤੂੰਬੀ','A one-string folk instrument with a sharp sound.','string'],['Algoza','ਅਲਗੋਜ਼ਾ','Paired flutes associated with Punjabi folk music.','flute'],['Boliyan','ਬੋਲੀਆਂ','Short lyrical verses used in giddha and weddings.','voice']].map(([n,p,d,k])=>({n,p,d,k}))},
+{id:'dance',n:'Dance',p:'ਨੱਚ',s:'Movement, rhythm, work, humor, memory, and celebration.',k:'dance',i:[['Bhangra','ਭੰਗੜਾ','Energy, rhythm, and harvest imagery.','dance'],['Giddha','ਗਿੱਧਾ','Boliyan, expression, humor, and women’s memory.','circle'],['Jhumar','ਝੂਮਰ','A graceful dance associated with western Punjab.','wave'],['Sammi','ਸੰਮੀ','A traditional women’s folk dance.','circle']].map(([n,p,d,k])=>({n,p,d,k}))},
+{id:'weddings',n:'Wedding Traditions',p:'ਵਿਆਹ ਦੀਆਂ ਰਸਮਾਂ',s:'Songs, family roles, clothing, food, gifts, and changing customs.',k:'lamp',i:[['Jaggo','ਜਾਗੋ','Decorated vessels, singing, and neighborhood celebration.','lamp'],['Maiyan','ਮਾਈਆਂ','Turmeric, family blessings, and preparation.','sun'],['Suhag','ਸੁਹਾਗ','Wedding songs carrying emotion, humor, advice, and memory.','voice'],['Milni','ਮਿਲਣੀ','A formal meeting recognizing relatives from both families.','hands']].map(([n,p,d,k])=>({n,p,d,k}))},
+{id:'games',n:'Traditional Games',p:'ਰਵਾਇਤੀ ਖੇਡਾਂ',s:'Physical games, strategy, teamwork, and village childhood.',k:'game',i:[['Kabaddi','ਕਬੱਡੀ','Breath control, strength, strategy, and agility.','hands'],['Gulli Danda','ਗੁੱਲੀ ਡੰਡਾ','An outdoor striking game using two wooden pieces.','sticks'],['Pithu Garam','ਪਿੱਠੂ ਗਰਮ','Stacked stones, throwing, teamwork, and rebuilding.','stones'],['Kikli','ਕਿੱਕਲੀ','A spinning girls’ game accompanied by songs.','circle']].map(([n,p,d,k])=>({n,p,d,k}))},
+{id:'artisans',n:'Artisan Workshop',p:'ਕਾਰੀਗਰ ਵਰਕਸ਼ਾਪ',s:'Meet the craftspeople shaping cloth, clay, leather, wood, metal, and woven objects.',k:'tools',i:[['Phulkari Artisan','ਫੁਲਕਾਰੀ ਕਾਰੀਗਰ','Pattern, color, patience, memory, and family teaching.','pattern'],['Jutti Maker','ਜੁੱਤੀ ਸਾਜ਼','Leather is cut, shaped, stitched, and decorated by hand.','shoe'],['Potter','ਘੁਮਿਆਰ','Clay is prepared, wheel-shaped, dried, and fired.','pot'],['Durrie Weaver','ਦਰੀ ਬੁਣਨ ਵਾਲਾ','Cotton threads become durable geometric floor coverings.','weave'],['Wood Carver','ਲੱਕੜ ਨੱਕਾਸ਼','Doors, chests, furniture, and architectural details.','wood'],['Metalworker','ਧਾਤ ਕਾਰੀਗਰ','Heating and hammering produce tools, vessels, and fittings.','metal']].map(([n,p,d,k])=>({n,p,d,k}))},
+{id:'modern',n:'Modern Punjabi Life',p:'ਆਧੁਨਿਕ ਪੰਜਾਬੀ ਜੀਵਨ',s:'Cities, diaspora, media, migration, technology, and evolving identities.',k:'city',i:[['Diaspora','ਪਰਵਾਸ','Culture preserved while adapting to new societies.','route'],['Cinema','ਸਿਨੇਮਾ','Humor, migration, family, music, and social change.','screen'],['Urban Punjab','ਸ਼ਹਿਰੀ ਪੰਜਾਬ','Industry, education, technology, food, and tradition.','city'],['Digital Culture','ਡਿਜ਼ਿਟਲ ਸਭਿਆਚਾਰ','Identity and language travel through digital platforms.','screen']].map(([n,p,d,k])=>({n,p,d,k}))}
 ];
-
-export default function PunjabiCultureWorld() {
-  const [topic, setTopic] = useState(topics[0]);
-  const [item, setItem] = useState(topics[0].items[0]);
-  const [visited, setVisited] = useState<string[]>([]);
-  const detailRef = useRef<HTMLElement | null>(null);
-  const progress = useMemo(() => Math.round((visited.length / topics.length) * 100), [visited]);
-
-  function openTopic(next: Topic) {
-    setTopic(next);
-    setItem(next.items[0]);
-    setVisited((current) => current.includes(next.id) ? current : [...current, next.id]);
-    window.setTimeout(() => detailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 40);
-  }
-
-  return (
-    <main className="min-h-screen bg-[#fff8ed] text-slate-950">
-      <section className="bg-[linear-gradient(135deg,#7f1d1d,#7c3aed_55%,#f59e0b)] text-white">
-        <div className="mx-auto max-w-7xl px-5 py-8 md:px-8">
-          <p className="text-xs font-black uppercase tracking-[0.3em] text-amber-200">Punjabi Culture World</p>
-          <h1 className="mt-2 text-4xl font-black md:text-6xl">Tap a culture world to open it.</h1>
-          <p className="mt-4 max-w-3xl text-sm font-semibold leading-7 text-slate-100">Every card and item below is now directly clickable.</p>
-          <div className="mt-5 max-w-md"><div className="flex justify-between text-xs font-black"><span>Progress</span><span>{progress}%</span></div><div className="mt-2 h-3 overflow-hidden rounded-full bg-white/15"><div className="h-full bg-amber-300" style={{ width: `${progress}%` }} /></div></div>
-        </div>
-      </section>
-
-      <nav aria-label="Culture topics" className="mx-auto grid max-w-7xl gap-3 px-5 py-6 sm:grid-cols-2 md:px-8 lg:grid-cols-4">
-        {topics.map((next) => (
-          <a
-            key={next.id}
-            href={`#culture-${next.id}`}
-            onClick={(event) => { event.preventDefault(); openTopic(next); }}
-            className={`block cursor-pointer rounded-3xl p-4 text-left shadow-md ring-1 transition active:scale-[0.98] ${topic.id === next.id ? 'bg-[#24160f] text-white ring-[#24160f]' : 'bg-white ring-black/10'}`}
-          >
-            <span className="text-4xl">{next.emoji}</span>
-            <h2 className="mt-3 text-xl font-black">{next.title}</h2>
-            <p className={topic.id === next.id ? 'mt-1 font-black text-amber-200' : 'mt-1 font-black text-red-800'}>{next.punjabi}</p>
-            <p className="mt-3 text-sm font-black underline">Open section →</p>
-          </a>
-        ))}
-      </nav>
-
-      <section ref={detailRef} id={`culture-${topic.id}`} className="mx-auto max-w-7xl scroll-mt-28 px-5 py-6 md:px-8">
-        <div className="rounded-[2rem] bg-white p-5 shadow-2xl ring-1 ring-black/10">
-          <div className="flex items-start justify-between gap-4"><div><p className="text-xs font-black uppercase tracking-[0.22em] text-purple-800">Open section</p><h2 className="mt-2 text-3xl font-black">{topic.title}</h2><p className="mt-1 text-2xl font-black text-red-800">{topic.punjabi}</p></div><span className="text-6xl">{topic.emoji}</span></div>
-          <p className="mt-4 text-base font-semibold leading-7 text-slate-700">{topic.summary}</p>
-
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {topic.items.map((nextItem) => (
-              <a
-                key={nextItem.name}
-                href={`#item-${topic.id}-${nextItem.name.toLowerCase().replaceAll(' ', '-')}`}
-                onClick={(event) => { event.preventDefault(); setItem(nextItem); }}
-                className={`block cursor-pointer rounded-2xl p-4 text-center ring-1 transition active:scale-95 ${item.name === nextItem.name ? 'bg-red-800 text-white ring-red-800' : 'bg-amber-50 ring-amber-200'}`}
-              >
-                <p className="text-4xl">{nextItem.emoji}</p>
-                <p className="mt-2 text-sm font-black">{nextItem.name}</p>
-                <p className={item.name === nextItem.name ? 'mt-1 text-sm font-black text-amber-200' : 'mt-1 text-sm font-black text-red-800'}>{nextItem.pa}</p>
-              </a>
-            ))}
-          </div>
-
-          <article id={`item-${topic.id}-${item.name.toLowerCase().replaceAll(' ', '-')}`} className="mt-6 rounded-3xl bg-amber-50 p-5 ring-1 ring-amber-200">
-            <div className="flex items-center gap-4"><span className="text-6xl">{item.emoji}</span><div><h3 className="text-2xl font-black">{item.name}</h3><p className="text-xl font-black text-red-800">{item.pa}</p></div></div>
-            <p className="mt-4 text-sm font-semibold leading-7 text-slate-700">{item.detail}</p>
-          </article>
-        </div>
-      </section>
-    </main>
-  );
-}
+export default function PunjabiCultureWorld(){const[o,setO]=useState<{t:number;i:number}|null>(null),[v,setV]=useState<string[]>([]);const progress=useMemo(()=>Math.round(v.length/T.length*100),[v]);useEffect(()=>{document.body.style.overflow=o?'hidden':'';return()=>{document.body.style.overflow=''}},[o]);const open=(t:number,i=0)=>{setO({t,i});setV(x=>x.includes(T[t].id)?x:[...x,T[t].id])};const move=(d:number)=>o&&setO({t:o.t,i:(o.i+d+T[o.t].i.length)%T[o.t].i.length});return <main className="min-h-screen bg-[#fff8ed] text-[#201712]"><section className="bg-[linear-gradient(135deg,#6f1d1b,#5c3c74_58%,#d99a22)] text-white"><div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16"><p className="text-xs font-black uppercase tracking-[.28em] text-[#f4d28a]">Punjabi Culture World</p><h1 className="mt-4 max-w-3xl font-serif text-5xl font-bold leading-[.98] md:text-7xl">Open culture without hunting below the page.</h1><p className="mt-5 max-w-2xl text-base font-medium leading-8 text-white/75">Every section opens immediately. Original illustrations replace the remaining emoji artwork.</p><div className="mt-7 max-w-md"><div className="flex justify-between text-sm font-black"><span>Exploration progress</span><span>{progress}%</span></div><div className="mt-2 h-3 overflow-hidden rounded-full bg-white/20"><div className="h-full bg-[#f0cc83]" style={{width:`${progress}%`}}/></div></div></div></section><section className="mx-auto max-w-7xl px-5 py-10 md:px-8"><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{T.map((x,t)=><button key={x.id} onClick={()=>open(t)} className="flex min-h-44 items-center gap-5 rounded-[1.7rem] border border-black/10 bg-white p-6 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><Icon k={x.k}/><span className="min-w-0 flex-1"><span className="block font-serif text-3xl font-bold">{x.n}</span><span className="mt-2 block text-xl font-black text-[#6f1d1b]">{x.p}</span><span className="mt-4 block text-sm font-black text-[#315a45]">Open section ›</span></span></button>)}</div></section>{o&&<div className="fixed inset-0 z-[100] flex items-end justify-center bg-black/65 backdrop-blur-sm md:items-center md:p-6" onMouseDown={e=>e.target===e.currentTarget&&setO(null)}><section className="max-h-[92vh] w-full overflow-y-auto rounded-t-[2rem] bg-[#fffdf8] md:max-w-4xl md:rounded-[2rem]"><header className="sticky top-0 z-10 flex items-center justify-between bg-[#201712] px-5 py-4 text-white"><div><p className="text-xs font-black uppercase tracking-[.18em] text-[#f0cc83]">{T[o.t].n}</p><p className="mt-1 font-black">{T[o.t].p}</p></div><button onClick={()=>setO(null)} className="grid h-11 w-11 place-items-center rounded-full border border-white/20 text-2xl">×</button></header><div className="p-5 md:p-8"><p className="text-sm font-medium leading-7 text-[#625a52]">{T[o.t].s}</p><div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">{T[o.t].i.map((x,i)=><button key={x.n} onClick={()=>setO({...o,i})} className={`rounded-[1.2rem] border p-4 text-left ${i===o.i?'border-[#6f1d1b] bg-[#f4e5c5]':'border-black/10 bg-white'}`}><Icon k={x.k} small/><p className="mt-3 font-serif text-lg font-bold">{x.n}</p><p className="mt-1 text-sm font-black text-[#6f1d1b]">{x.p}</p></button>)}</div><article className="mt-6 rounded-[1.6rem] border border-black/10 bg-[#fff8e8] p-6"><div className="flex items-center gap-4"><Icon k={T[o.t].i[o.i].k}/><div><h2 className="font-serif text-3xl font-bold">{T[o.t].i[o.i].n}</h2><p className="mt-1 text-xl font-black text-[#6f1d1b]">{T[o.t].i[o.i].p}</p></div></div><p className="mt-5 text-base font-medium leading-8 text-[#625a52]">{T[o.t].i[o.i].d}</p></article><div className="mt-6 flex justify-between"><button onClick={()=>move(-1)} className="rounded-full border border-black/15 px-5 py-3 text-sm font-black">Previous</button><button onClick={()=>move(1)} className="rounded-full bg-[#315a45] px-5 py-3 text-sm font-black text-white">Next</button></div></div></section></div>}</main>}
+function Icon({k,small=false}:{k:string;small?:boolean}){const shape=k==='bowl'?<><ellipse cx="32" cy="39" rx="21" ry="12" fill="#d99a22"/><path d="M15 36h34c-2 15-8 19-17 19S17 51 15 36Z" fill="#8a5b1f"/></>:k==='cloth'||k==='pattern'?<><rect x="10" y="10" width="44" height="44" rx="8" fill="#a14d74"/><path d="m32 15 12 17-12 17-12-17Z" fill="#f0cc83"/></>:k==='drum'?<><ellipse cx="32" cy="32" rx="23" ry="16" fill="#8a5b1f"/><path d="M9 32h46M20 18v28M44 18v28" stroke="#f4dfb8" strokeWidth="4"/></>:k==='dance'||k==='circle'?<><circle cx="32" cy="14" r="7" fill="#c98a72"/><path d="M32 22v25M32 29 12 20M32 29l20-9M32 47 18 58M32 47l14 11" stroke="#315a45" strokeWidth="6" strokeLinecap="round"/></>:k==='lamp'?<><path d="M14 43h36l-8-19H22z" fill="#d99a22"/><path d="M32 24c-8-7 0-15 0-15s8 8 0 15Z" fill="#6f1d1b"/></>:k==='game'||k==='hands'?<><circle cx="20" cy="22" r="8" fill="#c98a72"/><circle cx="44" cy="22" r="8" fill="#c98a72"/><path d="M10 52c2-18 18-18 20 0M34 52c2-18 18-18 20 0" fill="#365f73"/></>:k==='city'||k==='screen'||k==='route'?<><path d="M10 55V25h16v30M28 55V12h17v43M47 55V31h10v24" fill="#315a45"/></>:k==='shoe'?<path d="M12 40c14 0 17-19 26-19 8 0 6 14 14 17 6 3 5 12-2 14H18c-8 0-12-12-6-12Z" fill="#8a5b1f"/>:k==='pot'?<path d="M22 18c-7 12-9 32 10 38 19-6 17-26 10-38" fill="#b65b35" stroke="#8a5b1f" strokeWidth="4"/>:k==='weave'?<><rect x="10" y="12" width="44" height="40" fill="#f0cc83"/><path d="M10 22h44M10 32h44M20 12v40M32 12v40M44 12v40" stroke="#6f1d1b" strokeWidth="3"/></>:<><path d="M16 52 45 17M20 17l27 35" stroke="#8a5b1f" strokeWidth="8" strokeLinecap="round"/><rect x="39" y="10" width="15" height="15" rx="4" fill="#315a45"/></>;return <svg viewBox="0 0 64 64" className={`${small?'h-12 w-12':'h-20 w-20'} shrink-0 rounded-2xl bg-[#f4dfb8] p-2`} aria-hidden="true">{shape}</svg>}
