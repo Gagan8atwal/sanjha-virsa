@@ -1,5 +1,11 @@
 import LivingPunjabExperience from '../../components/LivingPunjabExperience';
+import LivingVillageHeroMount from '../../components/LivingVillageHeroMount';
 
 export default function LivingPunjabPage() {
-  return <LivingPunjabExperience />;
+  return (
+    <>
+      <LivingVillageHeroMount />
+      <LivingPunjabExperience />
+    </>
+  );
 }

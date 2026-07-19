@@ -1,0 +1,11 @@
+export { default as ScrollStage } from './ScrollStage';
+export type { SceneRenderContext } from './ScrollStage';
+export { default as CameraRig } from './CameraRig';
+export type { CameraKeyframe } from './CameraRig';
+export { default as SceneHotspot } from './SceneHotspot';
+export { default as SceneSection } from './SceneSection';
+export type { StoryMoment } from './SceneSection';
+export { default as SceneFallback } from './SceneFallback';
+export { default as SceneLoader } from './SceneLoader';
+export { default as PerformanceGuard } from './PerformanceGuard';
+export { default as AssetErrorBoundary } from './AssetErrorBoundary';

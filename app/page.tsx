@@ -1,3 +1,5 @@
+import HomeJourneyMount from '../components/HomeJourneyMount';
+
 const pathways = [
   { eyebrow: 'Learn', title: 'Punjabi for the next generation', description: 'Short language lessons, stories, pronunciation, quizzes, and family practice.', href: '/kids', accent: 'bg-[#6f1d1b]', art: 'language' },
   { eyebrow: 'History', title: 'Understand Punjab through time', description: 'Sikh history, Punjab history, places, timelines, and carefully structured learning.', href: '/heritage', accent: 'bg-[#1e3553]', art: 'history' },
@@ -49,7 +51,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="sv-container py-14 md:py-20">
+      <HomeJourneyMount skipTargetId="home-explore" />
+
+      <section id="home-explore" className="sv-container py-14 md:py-20">
         <div className="max-w-3xl">
           <p className="sv-kicker">Choose a path</p>
           <h2 className="mt-3 font-serif text-4xl font-bold tracking-[-0.03em] md:text-5xl">One clear doorway into every part of Punjabi heritage.</h2>
