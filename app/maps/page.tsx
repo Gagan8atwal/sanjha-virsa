@@ -1,4 +1,5 @@
 import InteractivePunjabAtlas from '../../components/InteractivePunjabAtlas';
+import MapTerrainHeroMount from '../../components/MapTerrainHeroMount';
 
 const related = [
   { title: 'Punjab Cities', href: '/cities', text: 'Open the city directory and explore more local histories.' },
@@ -20,6 +21,8 @@ export default function MapsPage() {
           <svg viewBox="0 0 520 390" role="img" aria-label="Illustrated Punjab map with rivers and city landmarks" className="w-full rounded-[2rem] border border-white/10 bg-[#f4dfb8] p-4 shadow-2xl"><rect width="520" height="390" rx="28" fill="#f4dfb8"/><path d="M63 72c92-48 191-35 260 6 75 45 132 39 181 22-4 63-53 94-76 142-31 67-96 108-180 96-77-11-114-54-180-49-66 5-90-56-63-108 22-43-6-85 58-109Z" fill="#d7c270" stroke="#8a5b1f" strokeWidth="7"/><path d="M263 75c-20 76-7 132 14 187 16 43 10 78-7 107" fill="none" stroke="#fffdf8" strokeWidth="6" strokeDasharray="12 12"/><path d="M75 125c104-38 188-22 267 21 63 35 108 30 145 17M82 205c90-27 169-9 239 30 64 35 114 34 165 14M73 280c94-11 177 13 249 52 56 31 108 29 158 16" fill="none" stroke="#3f7da2" strokeWidth="9" strokeLinecap="round"/><g fill="#6f1d1b" stroke="#fffdf8" strokeWidth="5"><circle cx="218" cy="153" r="14"/><circle cx="292" cy="170" r="14"/><circle cx="171" cy="231" r="14"/><circle cx="361" cy="255" r="14"/></g><path d="M105 322h87v-48h-87zM335 316h98v-64h-98z" fill="#315a45"/><path d="M98 274l51-38 51 38M325 252l59-46 59 46" fill="#d99a22"/></svg>
         </div>
       </section>
+
+      <MapTerrainHeroMount />
 
       <InteractivePunjabAtlas />
 
