@@ -4,3 +4,7 @@ out
 .env*.local
 .vercel
 .DS_Store
+
+# generated types / build info
+next-env.d.ts
+*.tsbuildinfo
