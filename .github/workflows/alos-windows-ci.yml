@@ -59,9 +59,10 @@ jobs:
           node-version: 20.20.2
           cache: npm
 
-      - name: Report toolchain
+      - name: Report runner and toolchain
         shell: pwsh
         run: |
+          Write-Host "Runner registration: $env:RUNNER_NAME; machine: $env:COMPUTERNAME"
           node --version
           npm.cmd --version
           git --version
